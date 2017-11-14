@@ -5,9 +5,9 @@ public class Business {
 
     private String bname;
 
-    private Float latitude;
+    private String latitude;
 
-    private Float longitude;
+    private String longitude;
 
     private String address;
 
@@ -31,20 +31,20 @@ public class Business {
         this.bname = bname == null ? null : bname.trim();
     }
 
-    public Float getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude == null ? null : latitude.trim();
     }
 
-    public Float getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude == null ? null : longitude.trim();
     }
 
     public String getAddress() {
