@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xawl.travel.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.xawl.travel.pojo.User" >
+    <id column="uid" property="uid" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="CHAR" />
+    <result column="account" property="account" jdbcType="CHAR" />
+    <result column="signin_time" property="signinTime" jdbcType="TIMESTAMP" />
+    <result column="pass" property="pass" jdbcType="CHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="head_img_path" property="headImgPath" jdbcType="CHAR" />
+    <result column="is_act" property="isAct" jdbcType="BIT" />
+    <result column="isdel" property="isdel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, phone, account, signin_time, pass, sex, head_img_path, is_act, isdel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where uid = #{uid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_user
+    where uid = #{uid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xawl.travel.pojo.User" >
+    insert into tb_user (uid, phone, account, signin_time, 
+      pass, sex, head_img_path, is_act, 
+      isdel)
+    values (#{uid,jdbcType=CHAR}, #{phone,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{signinTime,jdbcType=TIMESTAMP}, 
+      #{pass,jdbcType=CHAR}, #{sex,jdbcType=CHAR}, #{headImgPath,jdbcType=CHAR}, #{isAct,jdbcType=BIT}, 
+      #{isdel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xawl.travel.pojo.User" >
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="signinTime != null" >
+        signin_time,
+      </if>
+      <if test="pass != null" >
+        pass,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="headImgPath != null" >
+        head_img_path,
+      </if>
+      <if test="isAct != null" >
+        is_act,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="signinTime != null" >
+        #{signinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=CHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="headImgPath != null" >
+        #{headImgPath,jdbcType=CHAR},
+      </if>
+      <if test="isAct != null" >
+        #{isAct,jdbcType=BIT},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xawl.travel.pojo.User" >
+    update tb_user
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=CHAR},
+      </if>
+      <if test="signinTime != null" >
+        signin_time = #{signinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pass != null" >
+        pass = #{pass,jdbcType=CHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="headImgPath != null" >
+        head_img_path = #{headImgPath,jdbcType=CHAR},
+      </if>
+      <if test="isAct != null" >
+        is_act = #{isAct,jdbcType=BIT},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=BIT},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.User" >
+    update tb_user
+    set phone = #{phone,jdbcType=CHAR},
+      account = #{account,jdbcType=CHAR},
+      signin_time = #{signinTime,jdbcType=TIMESTAMP},
+      pass = #{pass,jdbcType=CHAR},
+      sex = #{sex,jdbcType=CHAR},
+      head_img_path = #{headImgPath,jdbcType=CHAR},
+      is_act = #{isAct,jdbcType=BIT},
+      isdel = #{isdel,jdbcType=BIT}
+    where uid = #{uid,jdbcType=CHAR}
+  </update>
+
+
+  <!--zb-->
+  <select id="findAll" resultType="com.xawl.travel.pojo.User">
+    SELECT * FROM tb_user
+  </select>
+</mapper>

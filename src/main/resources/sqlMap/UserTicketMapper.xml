@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xawl.travel.dao.UserTicketMapper" >
+  <resultMap id="BaseResultMap" type="com.xawl.travel.pojo.UserTicket" >
+    <id column="code" property="code" jdbcType="CHAR" />
+    <result column="num" property="num" jdbcType="SMALLINT" />
+    <result column="use_date" property="useDate" jdbcType="DATE" />
+    <result column="use_time" property="useTime" jdbcType="TIMESTAMP" />
+    <result column="is_use" property="isUse" jdbcType="BIT" />
+    <result column="oid" property="oid" jdbcType="CHAR" />
+    <result column="tid" property="tid" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    code, num, use_date, use_time, is_use, oid, tid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user_ticket
+    where code = #{code,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_user_ticket
+    where code = #{code,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xawl.travel.pojo.UserTicket" >
+    insert into tb_user_ticket (code, num, use_date, 
+      use_time, is_use, oid, tid
+      )
+    values (#{code,jdbcType=CHAR}, #{num,jdbcType=SMALLINT}, #{useDate,jdbcType=DATE}, 
+      #{useTime,jdbcType=TIMESTAMP}, #{isUse,jdbcType=BIT}, #{oid,jdbcType=CHAR}, #{tid,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xawl.travel.pojo.UserTicket" >
+    insert into tb_user_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="useDate != null" >
+        use_date,
+      </if>
+      <if test="useTime != null" >
+        use_time,
+      </if>
+      <if test="isUse != null" >
+        is_use,
+      </if>
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="tid != null" >
+        tid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        #{code,jdbcType=CHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=SMALLINT},
+      </if>
+      <if test="useDate != null" >
+        #{useDate,jdbcType=DATE},
+      </if>
+      <if test="useTime != null" >
+        #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=BIT},
+      </if>
+      <if test="oid != null" >
+        #{oid,jdbcType=CHAR},
+      </if>
+      <if test="tid != null" >
+        #{tid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xawl.travel.pojo.UserTicket" >
+    update tb_user_ticket
+    <set >
+      <if test="num != null" >
+        num = #{num,jdbcType=SMALLINT},
+      </if>
+      <if test="useDate != null" >
+        use_date = #{useDate,jdbcType=DATE},
+      </if>
+      <if test="useTime != null" >
+        use_time = #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUse != null" >
+        is_use = #{isUse,jdbcType=BIT},
+      </if>
+      <if test="oid != null" >
+        oid = #{oid,jdbcType=CHAR},
+      </if>
+      <if test="tid != null" >
+        tid = #{tid,jdbcType=CHAR},
+      </if>
+    </set>
+    where code = #{code,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.UserTicket" >
+    update tb_user_ticket
+    set num = #{num,jdbcType=SMALLINT},
+      use_date = #{useDate,jdbcType=DATE},
+      use_time = #{useTime,jdbcType=TIMESTAMP},
+      is_use = #{isUse,jdbcType=BIT},
+      oid = #{oid,jdbcType=CHAR},
+      tid = #{tid,jdbcType=CHAR}
+    where code = #{code,jdbcType=CHAR}
+  </update>
+</mapper>

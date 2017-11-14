@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - tourism@172.16.120.2" uuid="399ce627-de93-45f2-a74b-81a008dac8e3">
+    <database-info product="MySQL" version="5.6.22" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.40 ( Revision: 402933ef52cad9aa82624e80acbea46e3a701ce6 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.4">
+      <schema id="1" name="tourism"/>
+      <table id="2" parent="1" name="tb_business"/>
+      <table id="3" parent="1" name="tb_business_device"/>
+      <table id="4" parent="1" name="tb_business_img"/>
+      <table id="5" parent="1" name="tb_business_info"/>
+      <table id="6" parent="1" name="tb_business_keepsake"/>
+      <table id="7" parent="1" name="tb_order"/>
+      <table id="8" parent="1" name="tb_ticket"/>
+      <table id="9" parent="1" name="tb_user"/>
+      <table id="10" parent="1" name="tb_user_ticket"/>
+      <column id="11" parent="2" name="bid">
+        <comment>商家主键id,自定规则生成的ID10位数字,用于商家的主键,商家登录使用的账号</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <column id="12" parent="2" name="bname">
+        <comment>商家名称如:&apos;**游乐场&apos;</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(50)</data-type>
+      </column>
+      <column id="13" parent="2" name="latitude">
+        <comment>商家地理位置的纬度</comment>
+        <data-type>float</data-type>
+      </column>
+      <column id="14" parent="2" name="longitude">
+        <comment>商家地理位置的经度</comment>
+        <data-type>float</data-type>
+      </column>
+      <column id="15" parent="2" name="address">
+        <comment>商家地址,注册商家时的必填项</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(255)</data-type>
+      </column>
+      <column id="16" parent="2" name="level">
+        <comment>商家等级,如;&apos;4A级景区&apos;</comment>
+        <data-type>char(50)</data-type>
+      </column>
+      <column id="17" parent="2" name="is_use">
+        <comment>是否停用商家,默认不停用0</comment>
+        <data-type>tinyint(1)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="18" parent="2" name="PRIMARY">
+        <columns>bid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="19" parent="3" name="did">
+        <comment>设备ID,设备出厂ID唯一不会重复,在设备上获取</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(1)</data-type>
+      </column>
+      <column id="20" parent="3" name="bid">
+        <comment>所属商家ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <key id="21" parent="3" name="PRIMARY">
+        <columns>did</columns>
+        <primary>1</primary>
+      </key>
+      <column id="22" parent="4" name="imgID">
+        <comment>图片Id</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <column id="23" parent="4" name="bid">
+        <comment>图片所属商家ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <column id="24" parent="4" name="img_path">
+        <comment>图片相对路径</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(60)</data-type>
+      </column>
+      <column id="25" parent="4" name="create_time">
+        <comment>图片上传时间,修改需更新</comment>
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <key id="26" parent="4" name="PRIMARY">
+        <columns>imgID</columns>
+        <primary>1</primary>
+      </key>
+      <column id="27" parent="5" name="bid">
+        <comment>商家表的主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <column id="28" parent="5" name="info">
+        <comment>商家信息介绍,JSON格式</comment>
+        <data-type>text</data-type>
+      </column>
+      <key id="29" parent="5" name="PRIMARY">
+        <columns>bid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="30" parent="6" name="kid">
+        <comment>纪念品ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <column id="31" parent="6" name="bid">
+        <comment>纪念品所属商家Id</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <column id="32" parent="6" name="info">
+        <comment>纪念品描述</comment>
+        <data-type>text</data-type>
+      </column>
+      <column id="33" parent="6" name="img_path">
+        <comment>纪念品图片路径</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(50)</data-type>
+      </column>
+      <key id="34" parent="6" name="PRIMARY">
+        <columns>kid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="35" parent="7" name="oid">
+        <comment>UUID订单号</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(32)</data-type>
+      </column>
+      <column id="36" parent="7" name="status">
+        <comment>订单状态,0未付款,1付款,2交易结束</comment>
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="37" parent="7" name="create_time">
+        <comment>订单的创建时间</comment>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="38" parent="7" name="pay_time">
+        <comment>订单支付时间</comment>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="39" parent="7" name="uid">
+        <comment>用户主键ID,订单属于哪个用户,</comment>
+        <data-type>char(32)</data-type>
+      </column>
+      <column id="40" parent="7" name="bid">
+        <comment>商家Id属哪个商家的订单</comment>
+        <data-type>char(10)</data-type>
+      </column>
+      <key id="41" parent="7" name="PRIMARY">
+        <columns>oid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="42" parent="8" name="tid">
+        <comment>门票主键ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <column id="43" parent="8" name="bid">
+        <comment>门票所属商家ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <column id="44" parent="8" name="price">
+        <comment>门票价格</comment>
+        <mandatory>1</mandatory>
+        <data-type>float</data-type>
+      </column>
+      <column id="45" parent="8" name="tname">
+        <comment>门票名字,门票的简单描述</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(60)</data-type>
+      </column>
+      <column id="46" parent="8" name="info">
+        <comment>商品描述,</comment>
+        <data-type>char(255)</data-type>
+      </column>
+      <key id="47" parent="8" name="PRIMARY">
+        <columns>tid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="48" parent="9" name="uid">
+        <comment>用户主键用于外键去掉‘-’的uuid</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(32)</data-type>
+      </column>
+      <column id="49" parent="9" name="phone">
+        <comment>用户手机，用于登陆注册找回密码等操作</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(11)</data-type>
+      </column>
+      <column id="50" parent="9" name="account">
+        <comment>用户注册时填写用于登陆</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(15)</data-type>
+      </column>
+      <column id="51" parent="9" name="signin_time">
+        <comment>用户注册成功时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="52" parent="9" name="pass">
+        <comment>用户注册时填写，需要加密</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <column id="53" parent="9" name="sex">
+        <comment>男M,女W,默认男</comment>
+        <data-type>char(1)</data-type>
+        <default-expression>&apos;M&apos;</default-expression>
+      </column>
+      <column id="54" parent="9" name="head_img_path">
+        <comment>用户头像提供默认头像</comment>
+        <data-type>char(50)</data-type>
+        <default-expression>&apos;head/default/1.jpg&apos;</default-expression>
+      </column>
+      <column id="55" parent="9" name="is_act">
+        <comment>是否激活,手机号激活,默认未激活</comment>
+        <data-type>tinyint(1)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="56" parent="9" name="isdel">
+        <comment>是否删除,查询时应加上的条件,默认为未删除</comment>
+        <data-type>tinyint(1)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="57" parent="9" name="PRIMARY">
+        <columns>uid</columns>
+        <primary>1</primary>
+      </key>
+      <column id="58" parent="10" name="code">
+        <comment>用于生产票的二维码</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(32)</data-type>
+      </column>
+      <column id="59" parent="10" name="num">
+        <comment>同种类票的张数,开闸机的开门信号数量</comment>
+        <mandatory>1</mandatory>
+        <data-type>smallint(6)</data-type>
+        <default-expression>&apos;1&apos;</default-expression>
+      </column>
+      <column id="60" parent="10" name="use_date">
+        <comment>门票应该的使用日期</comment>
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="61" parent="10" name="use_time">
+        <comment>门票的使用日期</comment>
+        <data-type>datetime</data-type>
+      </column>
+      <column id="62" parent="10" name="is_use">
+        <comment>是否已经使用,0未使用,使用过</comment>
+        <data-type>tinyint(1)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="63" parent="10" name="oid">
+        <comment>所属订单ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(32)</data-type>
+      </column>
+      <column id="64" parent="10" name="tid">
+        <comment>票的类型</comment>
+        <mandatory>1</mandatory>
+        <data-type>char(10)</data-type>
+      </column>
+      <key id="65" parent="10" name="PRIMARY">
+        <columns>code</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
+  </data-source>
+</component>

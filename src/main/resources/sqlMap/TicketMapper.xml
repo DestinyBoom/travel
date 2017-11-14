@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xawl.travel.dao.TicketMapper" >
+  <resultMap id="BaseResultMap" type="com.xawl.travel.pojo.Ticket" >
+    <id column="tid" property="tid" jdbcType="CHAR" />
+    <result column="bid" property="bid" jdbcType="CHAR" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="tname" property="tname" jdbcType="CHAR" />
+    <result column="info" property="info" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, bid, price, tname, info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_ticket
+    where tid = #{tid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_ticket
+    where tid = #{tid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xawl.travel.pojo.Ticket" >
+    insert into tb_ticket (tid, bid, price, tname, 
+      info)
+    values (#{tid,jdbcType=CHAR}, #{bid,jdbcType=CHAR}, #{price,jdbcType=REAL}, #{tname,jdbcType=CHAR}, 
+      #{info,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xawl.travel.pojo.Ticket" >
+    insert into tb_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="tname != null" >
+        tname,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=CHAR},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=CHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="tname != null" >
+        #{tname,jdbcType=CHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xawl.travel.pojo.Ticket" >
+    update tb_ticket
+    <set >
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=CHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="tname != null" >
+        tname = #{tname,jdbcType=CHAR},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=CHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.Ticket" >
+    update tb_ticket
+    set bid = #{bid,jdbcType=CHAR},
+      price = #{price,jdbcType=REAL},
+      tname = #{tname,jdbcType=CHAR},
+      info = #{info,jdbcType=CHAR}
+    where tid = #{tid,jdbcType=CHAR}
+  </update>
+</mapper>

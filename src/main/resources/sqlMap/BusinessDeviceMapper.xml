@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xawl.travel.dao.BusinessDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.xawl.travel.pojo.BusinessDevice" >
+    <id column="did" property="did" jdbcType="CHAR" />
+    <result column="bid" property="bid" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    did, bid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_business_device
+    where did = #{did,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_business_device
+    where did = #{did,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xawl.travel.pojo.BusinessDevice" >
+    insert into tb_business_device (did, bid)
+    values (#{did,jdbcType=CHAR}, #{bid,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xawl.travel.pojo.BusinessDevice" >
+    insert into tb_business_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        #{did,jdbcType=CHAR},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xawl.travel.pojo.BusinessDevice" >
+    update tb_business_device
+    <set >
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=CHAR},
+      </if>
+    </set>
+    where did = #{did,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.BusinessDevice" >
+    update tb_business_device
+    set bid = #{bid,jdbcType=CHAR}
+    where did = #{did,jdbcType=CHAR}
+  </update>
+</mapper>

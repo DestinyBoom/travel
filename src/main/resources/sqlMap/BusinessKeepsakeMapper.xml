@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xawl.travel.dao.BusinessKeepsakeMapper" >
+  <resultMap id="BaseResultMap" type="com.xawl.travel.pojo.BusinessKeepsake" >
+    <id column="kid" property="kid" jdbcType="CHAR" />
+    <result column="bid" property="bid" jdbcType="CHAR" />
+    <result column="img_path" property="imgPath" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xawl.travel.pojo.BusinessKeepsake" extends="BaseResultMap" >
+    <result column="info" property="info" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    kid, bid, img_path
+  </sql>
+  <sql id="Blob_Column_List" >
+    info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_business_keepsake
+    where kid = #{kid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_business_keepsake
+    where kid = #{kid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xawl.travel.pojo.BusinessKeepsake" >
+    insert into tb_business_keepsake (kid, bid, img_path, info
+      )
+    values (#{kid,jdbcType=CHAR}, #{bid,jdbcType=CHAR}, #{imgPath,jdbcType=CHAR}, #{info,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xawl.travel.pojo.BusinessKeepsake" >
+    insert into tb_business_keepsake
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="kid != null" >
+        kid,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="imgPath != null" >
+        img_path,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="kid != null" >
+        #{kid,jdbcType=CHAR},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=CHAR},
+      </if>
+      <if test="imgPath != null" >
+        #{imgPath,jdbcType=CHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xawl.travel.pojo.BusinessKeepsake" >
+    update tb_business_keepsake
+    <set >
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=CHAR},
+      </if>
+      <if test="imgPath != null" >
+        img_path = #{imgPath,jdbcType=CHAR},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where kid = #{kid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xawl.travel.pojo.BusinessKeepsake" >
+    update tb_business_keepsake
+    set bid = #{bid,jdbcType=CHAR},
+      img_path = #{imgPath,jdbcType=CHAR},
+      info = #{info,jdbcType=LONGVARCHAR}
+    where kid = #{kid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.BusinessKeepsake" >
+    update tb_business_keepsake
+    set bid = #{bid,jdbcType=CHAR},
+      img_path = #{imgPath,jdbcType=CHAR}
+    where kid = #{kid,jdbcType=CHAR}
+  </update>
+</mapper>
