@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xawl.travel.dao.BusinessCarouselMapper" >
+  <resultMap id="BaseResultMap" type="com.xawl.travel.pojo.BusinessCarousel" >
+    <id column="bcid" property="bcid" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="ImgPath" property="imgpath" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="bid" property="bid" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bcid, name, ImgPath, type, bid, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_business_carousel
+    where bcid = #{bcid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_business_carousel
+    where bcid = #{bcid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xawl.travel.pojo.BusinessCarousel" >
+    insert into tb_business_carousel (bcid, name, ImgPath, type, 
+      bid, status)
+    values (#{bcid,jdbcType=CHAR}, #{name,jdbcType=CHAR}, #{imgpath,jdbcType=CHAR}, #{type,jdbcType=SMALLINT}, 
+      #{bid,jdbcType=CHAR}, #{status,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xawl.travel.pojo.BusinessCarousel" >
+    insert into tb_business_carousel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bcid != null" >
+        bcid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="imgpath != null" >
+        ImgPath,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bcid != null" >
+        #{bcid,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="imgpath != null" >
+        #{imgpath,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xawl.travel.pojo.BusinessCarousel" >
+    update tb_business_carousel
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="imgpath != null" >
+        ImgPath = #{imgpath,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where bcid = #{bcid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.BusinessCarousel" >
+    update tb_business_carousel
+    set name = #{name,jdbcType=CHAR},
+      ImgPath = #{imgpath,jdbcType=CHAR},
+      type = #{type,jdbcType=SMALLINT},
+      bid = #{bid,jdbcType=CHAR},
+      status = #{status,jdbcType=SMALLINT}
+    where bcid = #{bcid,jdbcType=CHAR}
+  </update>
+</mapper>
