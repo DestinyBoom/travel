@@ -22,8 +22,10 @@ public class UserController {
     private UserService userService;
 
     @ResponseBody
-    @RequestMapping("/findAll")
+    @RequestMapping("/findAll.action")
     public List<User> findAll(HttpServletRequest request, HttpServletResponse response){
         return userService.findAll();
     }
+
 }
+

@@ -15,8 +15,8 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
-
     public List<User> findAll() {
         return userMapper.findAll();
     }
+    //public int  updateByPrimaryKey(User record){return userMapper.updateByPrimaryKey(User record); }
 }
