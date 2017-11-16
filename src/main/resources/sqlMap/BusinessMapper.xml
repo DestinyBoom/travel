@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 <?xml version="1.0" encoding="UTF-8" ?>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+>>>>>>> Stashed changes
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xawl.travel.dao.BusinessMapper" >
   <resultMap id="BaseResultMap" type="com.xawl.travel.pojo.Business" >
@@ -9,9 +13,16 @@
     <result column="address" property="address" jdbcType="CHAR" />
     <result column="level" property="level" jdbcType="CHAR" />
     <result column="is_use" property="isUse" jdbcType="BIT" />
+<<<<<<< Updated upstream
   </resultMap>
   <sql id="Base_Column_List" >
     bid, bname, latitude, longitude, address, level, is_use
+=======
+    <result column="image" property="image" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bid, bname, latitude, longitude, address, level, is_use, image
+>>>>>>> Stashed changes
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
@@ -25,11 +36,11 @@
   </delete>
   <insert id="insert" parameterType="com.xawl.travel.pojo.Business" >
     insert into tb_business (bid, bname, latitude,
-    longitude, address, level, is_use
-    )
+    longitude, address, level, is_use,
+    image)
     values (#{bid,jdbcType=CHAR}, #{bname,jdbcType=CHAR}, #{latitude,jdbcType=CHAR},
-    #{longitude,jdbcType=CHAR}, #{address,jdbcType=CHAR}, #{level,jdbcType=CHAR}, #{isUse,jdbcType=BIT}
-    )
+    #{longitude,jdbcType=CHAR}, #{address,jdbcType=CHAR}, #{level,jdbcType=CHAR}, #{isUse,jdbcType=BIT},
+    #{image,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xawl.travel.pojo.Business" >
     insert into tb_business
@@ -55,6 +66,9 @@
       <if test="isUse != null" >
         is_use,
       </if>
+      <if test="image != null" >
+        image,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="bid != null" >
@@ -77,6 +91,9 @@
       </if>
       <if test="isUse != null" >
         #{isUse,jdbcType=BIT},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -101,12 +118,16 @@
       <if test="isUse != null" >
         is_use = #{isUse,jdbcType=BIT},
       </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
     </set>
     where bid = #{bid,jdbcType=CHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.Business" >
     update tb_business
     set bname = #{bname,jdbcType=CHAR},
+<<<<<<< Updated upstream
       latitude = #{latitude,jdbcType=CHAR},
       longitude = #{longitude,jdbcType=CHAR},
       address = #{address,jdbcType=CHAR},
@@ -114,4 +135,19 @@
       is_use = #{isUse,jdbcType=BIT}
     where bid = #{bid,jdbcType=CHAR}
   </update>
+=======
+    latitude = #{latitude,jdbcType=CHAR},
+    longitude = #{longitude,jdbcType=CHAR},
+    address = #{address,jdbcType=CHAR},
+    level = #{level,jdbcType=CHAR},
+    is_use = #{isUse,jdbcType=BIT},
+    image = #{image,jdbcType=VARCHAR}
+    where bid = #{bid,jdbcType=CHAR}
+  </update>
+
+  <!--全部信息-->
+  <select id="findAll" resultType="com.xawl.travel.pojo.Business">
+    select * from tb_business
+  </select>
+>>>>>>> Stashed changes
 </mapper>
