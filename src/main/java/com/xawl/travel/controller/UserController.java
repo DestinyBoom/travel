@@ -1,5 +1,4 @@
 package com.xawl.travel.controller;
-
 import com.xawl.travel.pojo.User;
 import com.xawl.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,3 +26,4 @@ public class UserController {
         return userService.findAll();
     }
 }
+
