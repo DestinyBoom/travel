@@ -2,6 +2,7 @@ package com.xawl.travel.service;
 
 
 import com.xawl.travel.dao.BusinessImgMapper;
+import com.xawl.travel.pojo.BusinessImg;
 import com.xawl.travel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,13 @@ public class BusinessImgService {
     private BusinessImgMapper businessImgMapper;
 
     public Result selectImgByBid(String bid) {
-       return businessImgMapper.selectImgByBid(bid);
+        BusinessImg businessImg= businessImgMapper.selectImgByBid(bid);
+        return  Result.success(businessImg) ;
+    }
+
+    public Result addImg(BusinessImg businessImg) {
+
+        businessImgMapper.insertSelective(businessImg);
+        return Result.success();
     }
 }
