@@ -23,9 +23,12 @@ public class BusinessImgController {
 
 
     @ResponseBody
-    @RequestMapping("/selectImgById.action")
-    public Result selectImgById(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping("/selectImgByBid.action")
+    public Result selectImgByBid(HttpServletRequest request, HttpServletResponse response, String bid){
 
-        return null;
+        Result result = businessImgService.selectImgByBid(bid);
+        result.success("成功");
+        System.out.println(result.toString());
+        return result;
     }
 }

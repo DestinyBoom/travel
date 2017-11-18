@@ -11,6 +11,8 @@ public interface BusinessImgMapper {
 
     BusinessImg selectByPrimaryKey(String imgid);
 
+    BusinessImg selectImgByBid(String bid);
+
     int updateByPrimaryKeySelective(BusinessImg record);
 
     int updateByPrimaryKey(BusinessImg record);

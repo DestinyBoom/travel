@@ -79,4 +79,13 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where imgID = #{imgid,jdbcType=CHAR}
   </update>
+
+
+  <!--自定义mapper-->
+  <select id="selectImgByBid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_business_img
+    where bid = #{bid,jdbcType=CHAR}
+  </select>
 </mapper>

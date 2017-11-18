@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 
 /**
- * Created by wt on 2017/11/17.
+ * Created Administrator on 2017/11/17.
  */
 public class Result {
 
@@ -16,30 +16,14 @@ public class Result {
      * @author Administrator
      *
      */
-        // 定义jackson对象
-        private static final ObjectMapper MAPPER = new ObjectMapper();
+    // 定义jackson对象
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
-        // 响应业务状态
         private Integer status;
-
-        // 响应消息
         private String msg;
-
-        // 响应中的数据
         private Object data;
-        private Object data2;
 
-        public Object getData2() {
-            return data2;
-        }
-
-        public void setData2(Object data2) {
-            this.data2 = data2;
-        }
-
-        // 构造方法
         public Result() {
-
         }
 
         public Result(Integer status, String msg, Object data) {
@@ -48,27 +32,28 @@ public class Result {
             this.data = data;
         }
 
-        public Result(Object data) {
-            this.status = 200;
-            this.msg = "OK";
-            this.data = data;
+        public static Result success() {
+            return new Result(200, "操作成功", null);
         }
 
-        // getter,setter方法
-        public Integer getStatus() {
-            return status;
+        public static Result success(String msg) {
+            return new Result(200, msg, null);
         }
 
-        public void setStatus(Integer status) {
-            this.status = status;
+        public static Result success(Object data) {
+            return new Result(200, "操作成功", data);
         }
 
-        public String getMsg() {
-            return msg;
+        public static Result success(String msg, Object data) {
+            return new Result(200, msg, data);
         }
 
-        public void setMsg(String msg) {
-            this.msg = msg;
+        public static Result fail(String msg) {
+            return new Result(400, msg, null);
+        }
+
+        public static Result fail(Integer status, String msg) {
+            return new Result(status, msg, null);
         }
 
         public Object getData() {
@@ -79,106 +64,118 @@ public class Result {
             this.data = data;
         }
 
-        // 一些静态方法
-        // 成功无数据
-        public static Result ok() {
-            return new Result(null);
+        public String getMsg() {
+            return msg;
         }
 
-        // 成功有数据
-        public static Result ok(Object data) {
-            return new Result(data);
+        public void setMsg(String msg) {
+            this.msg = msg;
         }
 
-        // 自定义无数据
-        public static Result build(Integer status, String msg) {
-            return new Result(status, msg, null);
+        public Integer getStatus() {
+            return status;
         }
 
-        // 自定义有数据
-        public static Result build(Integer status, String msg, Object data) {
-            return new Result(status, msg, data);
+        public void setStatus(Integer status) {
+            this.status = status;
         }
 
-        // 数据格式转换的一些方法
 
-        /**
-         * 将json结果集转化为TaotaoResult对象
-         *
-         * @param jsonData
-         *            json数据
-         * @param clazz
-         *            TaotaoResult中的object类型
-         * @return
-         */
-        public static Result formatToPojo(String jsonData, Class<?> clazz) {
-            try {
+    // 自定义无数据
+    public static Result build(Integer status, String msg) {
+        return new Result(status, msg, null);
+    }
 
-                if (clazz == null) {
-                    return MAPPER.readValue(jsonData, Result.class);
-                }
-                JsonNode jsonNode = MAPPER.readTree(jsonData);
-                JsonNode data = jsonNode.get("data");
-                Object obj = null;
+    // 自定义有数据
+    public static Result build(Integer status, String msg, Object data) {
+        return new Result(status, msg, data);
+    }
 
-                if (clazz != null) {
-                    if (data.isObject()) {
-                        obj = MAPPER.readValue(data.traverse(), clazz);
-                    } else if (data.isTextual()) {
-                        obj = MAPPER.readValue(data.asText(), clazz);
-                    }
-                }
-                return build(jsonNode.get("status").intValue(), jsonNode.get("msg")
-                        .asText(), obj);
-            } catch (Exception e) {
-                return null;
+    // 数据格式转换的一些方法
+
+    /**
+     * 将json结果集转化为TaotaoResult对象
+     *
+     * @param jsonData
+     *            json数据
+     * @param clazz
+     *            TaotaoResult中的object类型
+     * @return
+     */
+    public static Result formatToPojo(String jsonData, Class<?> clazz) {
+        try {
+
+            if (clazz == null) {
+                return MAPPER.readValue(jsonData, Result.class);
             }
-        }
+            JsonNode jsonNode = MAPPER.readTree(jsonData);
+            JsonNode data = jsonNode.get("data");
+            Object obj = null;
 
-        /**
-         * 没有object对象的转化
-         *
-         * @param json
-         * @return
-         */
-        public static Result format(String json) {
-            try {
-                return MAPPER.readValue(json, Result.class);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (clazz != null) {
+                if (data.isObject()) {
+                    obj = MAPPER.readValue(data.traverse(), clazz);
+                } else if (data.isTextual()) {
+                    obj = MAPPER.readValue(data.asText(), clazz);
+                }
             }
+            return build(jsonNode.get("status").intValue(), jsonNode.get("msg")
+                    .asText(), obj);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * 没有object对象的转化
+     *
+     * @param json
+     * @return
+     */
+    public static Result format(String json) {
+        try {
+            return MAPPER.readValue(json, Result.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Object是集合转化
+     *
+     * @param jsonData
+     *            json数据
+     * @param clazz
+     *            集合中的类型
+     * @return
+     */
+    public static Result formatToList(String jsonData, Class<?> clazz) {
+        try {
+            JsonNode jsonNode = MAPPER.readTree(jsonData);
+            JsonNode data = jsonNode.get("data");
+            Object obj = null;
+            if (data.isArray() && data.size() > 0) {
+                obj = MAPPER.readValue(data.traverse(), MAPPER.getTypeFactory()
+                        .constructCollectionType(List.class, clazz));
+            }
+            return build(jsonNode.get("status").intValue(), jsonNode.get("msg")
+                    .asText(), obj);
+        } catch (Exception e) {
             return null;
         }
 
-        /**
-         * Object是集合转化
-         *
-         * @param jsonData
-         *            json数据
-         * @param clazz
-         *            集合中的类型
-         * @return
-         */
-        public static Result formatToList(String jsonData, Class<?> clazz) {
-            try {
-                JsonNode jsonNode = MAPPER.readTree(jsonData);
-                JsonNode data = jsonNode.get("data");
-                Object obj = null;
-                if (data.isArray() && data.size() > 0) {
-                    obj = MAPPER.readValue(data.traverse(), MAPPER.getTypeFactory()
-                            .constructCollectionType(List.class, clazz));
-                }
-                return build(jsonNode.get("status").intValue(), jsonNode.get("msg")
-                        .asText(), obj);
-            } catch (Exception e) {
-                return null;
-            }
-
-        }
-
-        public String toString() {
-            return "Result [status=" + status + ", msg=" + msg + ", data=" + data
-                    + ", data2=" + data2 + "]";
-        }
     }
+
+    @Override
+    public String toString() {
+        return "Result [status=" + status + ", msg=" + msg + ", data=" + data + "]";
+    }
+}
+
+
+
+
+
+
 
