@@ -1,22 +1,31 @@
 package com.xawl.travel.pojo;
 
 public class Business {
-    //商家主键id,自定规则生成的ID10位数字,用于商家的主键,商家登录使用的账号
     private String bid;
-    //商家名称如:'**游乐场'
+
     private String bname;
-    //商家地理位置的纬度
+
     private String latitude;
-    //商家地理位置的经度
+
     private String longitude;
-    //商家地址,注册商家时的必填项
+
     private String address;
-    //商家等级,如;'4A级景区'
+
     private String level;
-    //是否停用商家,默认不停用0
+
     private Boolean isUse;
-    //图片
+
     private String image;
+
+    private String pass;
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 
     public String getBid() {
         return bid;

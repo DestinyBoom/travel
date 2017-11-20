@@ -1,153 +1,140 @@
-<<<<<<< Updated upstream
 <?xml version="1.0" encoding="UTF-8" ?>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
->>>>>>> Stashed changes
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xawl.travel.dao.BusinessMapper" >
-  <resultMap id="BaseResultMap" type="com.xawl.travel.pojo.Business" >
-    <id column="bid" property="bid" jdbcType="CHAR" />
-    <result column="bname" property="bname" jdbcType="CHAR" />
-    <result column="latitude" property="latitude" jdbcType="CHAR" />
-    <result column="longitude" property="longitude" jdbcType="CHAR" />
-    <result column="address" property="address" jdbcType="CHAR" />
-    <result column="level" property="level" jdbcType="CHAR" />
-    <result column="is_use" property="isUse" jdbcType="BIT" />
-<<<<<<< Updated upstream
+<mapper namespace="com.xawl.travel.dao.BusinessMapper">
+  <resultMap id="BaseResultMap" type="com.xawl.travel.pojo.Business">
+    <id column="bid" property="bid" jdbcType="CHAR"/>
+    <result column="bname" property="bname" jdbcType="CHAR"/>
+    <result column="latitude" property="latitude" jdbcType="CHAR"/>
+    <result column="longitude" property="longitude" jdbcType="CHAR"/>
+    <result column="address" property="address" jdbcType="CHAR"/>
+    <result column="level" property="level" jdbcType="CHAR"/>
+    <result column="is_use" property="isUse" jdbcType="BIT"/>
+    <result column="image" property="image" jdbcType="VARCHAR"/>
+    <result column="pass" property="pass" jdbcType="CHAR"/>
   </resultMap>
-  <sql id="Base_Column_List" >
-    bid, bname, latitude, longitude, address, level, is_use
-=======
-    <result column="image" property="image" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    bid, bname, latitude, longitude, address, level, is_use, image
->>>>>>> Stashed changes
+  <sql id="Base_Column_List">
+    bid, bname, latitude, longitude, address, level, is_use, image,pass
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List"/>
     from tb_business
     where bid = #{bid,jdbcType=CHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tb_business
     where bid = #{bid,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="com.xawl.travel.pojo.Business" >
+  <insert id="insert" parameterType="com.xawl.travel.pojo.Business">
     insert into tb_business (bid, bname, latitude,
     longitude, address, level, is_use,
-    image)
+    image,pass)
     values (#{bid,jdbcType=CHAR}, #{bname,jdbcType=CHAR}, #{latitude,jdbcType=CHAR},
     #{longitude,jdbcType=CHAR}, #{address,jdbcType=CHAR}, #{level,jdbcType=CHAR}, #{isUse,jdbcType=BIT},
-    #{image,jdbcType=VARCHAR})
+    #{image,jdbcType=VARCHAR},#{pass,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.xawl.travel.pojo.Business" >
+  <insert id="insertSelective" parameterType="com.xawl.travel.pojo.Business">
     insert into tb_business
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="bid != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bid != null">
         bid,
       </if>
-      <if test="bname != null" >
+      <if test="bname != null">
         bname,
       </if>
-      <if test="latitude != null" >
+      <if test="latitude != null">
         latitude,
       </if>
-      <if test="longitude != null" >
+      <if test="longitude != null">
         longitude,
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         address,
       </if>
-      <if test="level != null" >
+      <if test="level != null">
         level,
       </if>
-      <if test="isUse != null" >
+      <if test="isUse != null">
         is_use,
       </if>
-      <if test="image != null" >
+      <if test="image != null">
         image,
       </if>
+      <if test="pass != null">
+        pass,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="bid != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bid != null">
         #{bid,jdbcType=CHAR},
       </if>
-      <if test="bname != null" >
+      <if test="bname != null">
         #{bname,jdbcType=CHAR},
       </if>
-      <if test="latitude != null" >
+      <if test="latitude != null">
         #{latitude,jdbcType=CHAR},
       </if>
-      <if test="longitude != null" >
+      <if test="longitude != null">
         #{longitude,jdbcType=CHAR},
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         #{address,jdbcType=CHAR},
       </if>
-      <if test="level != null" >
+      <if test="level != null">
         #{level,jdbcType=CHAR},
       </if>
-      <if test="isUse != null" >
+      <if test="isUse != null">
         #{isUse,jdbcType=BIT},
       </if>
-      <if test="image != null" >
+      <if test="image != null">
         #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null">
+        #{pass,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xawl.travel.pojo.Business" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.xawl.travel.pojo.Business">
     update tb_business
-    <set >
-      <if test="bname != null" >
+    <set>
+      <if test="bname != null">
         bname = #{bname,jdbcType=CHAR},
       </if>
-      <if test="latitude != null" >
+      <if test="latitude != null">
         latitude = #{latitude,jdbcType=CHAR},
       </if>
-      <if test="longitude != null" >
+      <if test="longitude != null">
         longitude = #{longitude,jdbcType=CHAR},
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         address = #{address,jdbcType=CHAR},
       </if>
-      <if test="level != null" >
+      <if test="level != null">
         level = #{level,jdbcType=CHAR},
       </if>
-      <if test="isUse != null" >
+      <if test="isUse != null">
         is_use = #{isUse,jdbcType=BIT},
       </if>
-      <if test="image != null" >
+      <if test="image != null">
         image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null">
+        pass = #{pass,jdbcType=CHAR},
       </if>
     </set>
     where bid = #{bid,jdbcType=CHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.Business" >
+  <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.Business">
     update tb_business
     set bname = #{bname,jdbcType=CHAR},
-<<<<<<< Updated upstream
-      latitude = #{latitude,jdbcType=CHAR},
-      longitude = #{longitude,jdbcType=CHAR},
-      address = #{address,jdbcType=CHAR},
-      level = #{level,jdbcType=CHAR},
-      is_use = #{isUse,jdbcType=BIT}
-    where bid = #{bid,jdbcType=CHAR}
-  </update>
-=======
     latitude = #{latitude,jdbcType=CHAR},
     longitude = #{longitude,jdbcType=CHAR},
     address = #{address,jdbcType=CHAR},
     level = #{level,jdbcType=CHAR},
     is_use = #{isUse,jdbcType=BIT},
     image = #{image,jdbcType=VARCHAR}
+    pass = #{pass,jdbcType=CHAR}
     where bid = #{bid,jdbcType=CHAR}
   </update>
 
-  <!--全部信息-->
-  <select id="findAll" resultType="com.xawl.travel.pojo.Business">
-    select * from tb_business
-  </select>
->>>>>>> Stashed changes
 </mapper>
