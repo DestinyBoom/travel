@@ -37,8 +37,9 @@ public class BusinessImgController {
     @RequestMapping("/addImg.action")
     public Result addImg(HttpServletRequest request, HttpServletResponse response, BusinessImg businessImg, MultipartFile file){
 
-
-        businessImgService.addImg(businessImg);
-        return  null;
+        Result result = businessImgService.addImg(businessImg);
+        return  result;
     }
+
+
 }

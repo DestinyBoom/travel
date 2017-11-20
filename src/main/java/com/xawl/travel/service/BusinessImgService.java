@@ -18,8 +18,9 @@ public class BusinessImgService {
     private BusinessImgMapper businessImgMapper;
 
     public Result selectImgByBid(String bid) {
-        BusinessImg businessImg= businessImgMapper.selectImgByBid(bid);
-        return  Result.success(businessImg) ;
+        BusinessImg businessImg;
+        businessImg = businessImgMapper.selectImgByBid(bid);
+        return Result.success(businessImg);
     }
 
     public Result addImg(BusinessImg businessImg) {
