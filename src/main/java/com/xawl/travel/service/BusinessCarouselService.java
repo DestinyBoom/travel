@@ -6,6 +6,8 @@ import com.xawl.travel.pojo.BusinessCarousel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * Created by zb on 2017/11/14.
@@ -15,6 +17,11 @@ public class BusinessCarouselService {
 
     @Autowired
     public BusinessCarouselMapper businessCarouselMapper;
+
+    public List<BusinessCarousel> findAll(){
+        return businessCarouselMapper.findAll();
+    }
+
 
     public BusinessCarousel selectByPrimaryKey(String bcid){return businessCarouselMapper.selectByPrimaryKey(bcid);}
 
