@@ -107,7 +107,7 @@ public class BusinessCarouselController {
     }
 
     /*
-    @ResponseBody
+    @ResponseBodyt
     @RequestMapping("/updateByPrimaryKeySelective.action")
     public String  updateByPrimaryKeySelective(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record){
         String msg;
