@@ -1,10 +1,8 @@
 package com.xawl.travel.pojo;
 
-import com.xawl.travel.utils.Result;
-
 import java.util.Date;
 
-public class BusinessImg extends Result {
+public class BusinessImg  {
     private String imgid;
 
     private String bid;

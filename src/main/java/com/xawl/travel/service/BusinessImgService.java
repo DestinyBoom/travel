@@ -7,6 +7,8 @@ import com.xawl.travel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/11/17.
  */
@@ -18,12 +20,16 @@ public class BusinessImgService {
     private BusinessImgMapper businessImgMapper;
 
     public Result selectImgByBid(String bid) {
-        BusinessImg businessImg;
-        businessImg = businessImgMapper.selectImgByBid(bid);
-        return Result.success(businessImg);
+
+        if(bid == null||bid ==""){
+            return Result.fail(300, "请给出对应商家ID");
+        }
+        List<BusinessImg> list = businessImgMapper.selectImgByBid(bid);
+        return Result.success(list);
     }
 
     public Result addImg(BusinessImg businessImg) {
+
 
         businessImgMapper.insertSelective(businessImg);
         return Result.success();
