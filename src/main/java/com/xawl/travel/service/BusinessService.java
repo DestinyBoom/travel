@@ -2,6 +2,7 @@ package com.xawl.travel.service;
 
 import com.xawl.travel.dao.BusinessMapper;
 import com.xawl.travel.pojo.Business;
+import com.xawl.travel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,14 @@ public class BusinessService {
         return businessMapper.selectByPrimaryKey(bid);
     }
 
-    public int insert(Business record){
-        return businessMapper.insert(record);
+    public Result insert(Business record){
+        try {
+            businessMapper.insert(record);
+            return Result.success(record);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(405,"注册失败");
+        }
     }
 
     public int insertSelective(Business record){

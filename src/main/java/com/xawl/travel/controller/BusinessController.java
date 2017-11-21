@@ -2,6 +2,8 @@ package com.xawl.travel.controller;
 
 import com.xawl.travel.pojo.Business;
 import com.xawl.travel.service.BusinessService;
+import com.xawl.travel.utils.CreateId;
+import com.xawl.travel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +38,11 @@ public class BusinessController {
 
     @ResponseBody
     @RequestMapping("/insert.action")
-    public int insert(Business record){
-        return businessService.insert(record);
+    public Result insert(Business record){
+        record.setBid(CreateId.gitId());
+        record.setIsUse(false);
+        Result result=  businessService.insert(record);
+        return result ;
     }
 
     @ResponseBody
