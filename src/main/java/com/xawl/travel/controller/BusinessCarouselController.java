@@ -25,7 +25,7 @@ public class BusinessCarouselController {
     @ResponseBody
     @RequestMapping("/findAll.action")
     public List<BusinessCarousel> findAll(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(businessCarouselService.findAll());
+       // System.out.println(businessCarouselService.findAll());
         return businessCarouselService.findAll();
     }
 
@@ -86,7 +86,7 @@ public class BusinessCarouselController {
             Object s1 = request.getAttribute("msg");
             System.out.println(s1);
         }
-       record.setImgpath("bigImg");
+       record.setImgpath(bigImg);
         try {
             int rows = businessCarouselService.insertSelective(record);
             if (rows == 0) {
