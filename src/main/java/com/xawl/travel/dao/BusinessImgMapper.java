@@ -18,4 +18,6 @@ public interface BusinessImgMapper {
     int updateByPrimaryKeySelective(BusinessImg record);
 
     int updateByPrimaryKey(BusinessImg record);
+
+    int deleteByImgIds(String[] img_ids);
 }
