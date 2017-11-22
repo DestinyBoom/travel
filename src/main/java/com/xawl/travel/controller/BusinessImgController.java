@@ -8,14 +8,14 @@ import com.xawl.travel.utils.UploadImages;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -72,12 +72,17 @@ public class BusinessImgController {
     }
 
 
-
-    /*删除图片*/
+    /*单个或批量删除图片*/
      @ResponseBody
-     @RequestMapping("/deleteImg.action")
-     public Result deleteImg(){
-             return null;
+     @RequestMapping(value="/deleteImg.action/{ids}", method= RequestMethod.DELETE)
+     public Result deleteImg(HttpServletRequest request, HttpServletResponse response,@PathVariable("ids")String ids)throws Exception
+     {
+         //批量删除
+        if (ids == null || ids.equals("")){
+            return Result.fail(300,"要删除的id不存在");
+        }
+         businessImgService.deleteImages(ids,request);
+         return Result.success();
      }
 
 

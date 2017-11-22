@@ -11,7 +11,7 @@ public interface BusinessImgMapper {
 
     int insertSelective(BusinessImg record);
 
-    BusinessImg selectByPrimaryKey(String imgid);
+    BusinessImg selectByPrimaryKey(BusinessImg imgid);
 
     List<BusinessImg> selectImgByBid(String bid);
 
