@@ -47,7 +47,7 @@ public class BusinessImgController {
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-        String path2 = "Img";  //保存的文件夹
+        String path2 = "Img/businessImps";  //保存的文件夹
         String imgPath = uploadImage.upLoadImage(request, file, path1, path2);
         if (!imgPath.contains(".")) {
             return Result.fail("未选择上传文件");

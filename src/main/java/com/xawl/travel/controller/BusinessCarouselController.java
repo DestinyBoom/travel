@@ -78,7 +78,7 @@ public class BusinessCarouselController {
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-        String path2 = "businessCarouselImages";  //保存的文件夹
+        String path2 = "img/CarouselImages"; //保存的文件夹
         String bigImg = uploadImage.upLoadImage(request, file, path1, path2);
         if (!bigImg.contains(".")) {
             msg = "未选择文件";

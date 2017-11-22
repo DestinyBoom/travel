@@ -18,7 +18,7 @@ public class UploadImages {
      * 图片上传工具类 
      * 
      * @param request  需要上传的request对象 
-     * @param images  上传的图片数组 
+     * @param images  上传的图片数组
      * @param path1     路径 
      * @param path2     文件夹名称    
      * @return String   返回的数据 
@@ -28,7 +28,7 @@ public class UploadImages {
     public String upLoadImage(HttpServletRequest request,MultipartFile image,String path1,String path2){  
         List<String> fileTypes = new ArrayList<String>();  
         path1 +=path2;  //拼接固定路径  
-        String path3 = new SimpleDateFormat("yyyyMMdd").format(new Date());//创建文件夹路径  
+        String path3 = new SimpleDateFormat("yyyy-MM").format(new Date());//创建文件夹路径
         String savePath="";  
         fileTypes.add("jpg");  
         fileTypes.add("jpeg");  
@@ -54,7 +54,7 @@ public class UploadImages {
     }  
   
     private File getFile(MultipartFile imgFile,String typeName,String brandName,List fileTypes) {   
-        String nowTime =new SimpleDateFormat("yyyyMMddHHmmssSSS") .format(new Date())+new Random().nextInt(10); //重命名  
+        String nowTime =new SimpleDateFormat("yyyyMMdd") .format(new Date())+new Random().nextInt(10); //重命名
         String fileName = imgFile.getOriginalFilename();    
         //获取上传文件类型的扩展名,先得到.的位置，再截取从.的下一个位置到文件的最后，最后得到扩展名    
         String ext = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length());    
