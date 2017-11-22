@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -106,10 +107,9 @@ public class BusinessCarouselController {
         return businessCarouselService.findAll();
     }
 
-    /*
-    @ResponseBodyt
+   @ResponseBody
     @RequestMapping("/updateByPrimaryKeySelective.action")
-    public String  updateByPrimaryKeySelective(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record){
+    public List<BusinessCarousel> updateByPrimaryKeySelective(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record, String bcid,MultipartFile file){
         String msg;
         if(record.getName()==null||record.getName().equals("")){
             msg="修改失败，数据名不能为空";
@@ -121,39 +121,39 @@ public class BusinessCarouselController {
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
         String path2 = "businessCarouselImages";  //保存的文件夹
         String bigImg = uploadImage.upLoadImage(request, file, path1, path2);
-        if(!bigImg.contains(".")){
-        	 record.setImgpath(null);
+        if (!bigImg.contains(".")) {
+            record.setImgpath(null);
         }else{
-        	BusinessCarousel businessCarousel2 = new BusinessCarousel();
-        	businessCarousel2 = BusinessCarousellService.SelectCarouselByCaid(businessCarousel);
-        	File image= new File(path1+carousel2.getImgpath());
-        	System.out.println(image);
-        	if(image.exists()){
-        		image.delete();
-        	}
-        	carousel.setImgpath(bigImg);
+            BusinessCarousel record2 = new BusinessCarousel();
+            record2 = businessCarouselService.selectByPrimaryKey(bcid);
+            File image= new File(path1+record2.getImgpath());
+            System.out.println(image);
+            if(image.exists()){
+                image.delete();
+            }
+            record.setImgpath(bigImg);
         }
-        try {
-        	int rows = BusinessCarousellService.updateBusinessCarousel(carousel);
-        	if(rows == 0){
-        		msg="修改失败,注入数据库失败";
-                request.setAttribute("msg", msg);
-        	}else{
-        		msg="修改成功";
-                request.setAttribute("msg", msg);
-        	}
-        } catch (Exception e) {
-            e.printStackTrace();
-            msg="修改失败,服务器异常";
-            request.setAttribute("msg", msg);
-        }
-        return businessCarouselService.findAll();
+       try {
+           int rows = businessCarouselService.updateByPrimaryKeySelective(record);
+           if(rows == 0){
+               msg="修改失败,注入数据库失败";
+               request.setAttribute("msg", msg);
+           }else{
+               msg="修改成功";
+               request.setAttribute("msg", msg);
+           }
+       } catch (Exception e) {
+           e.printStackTrace();
+           msg="修改失败,服务器异常";
+           request.setAttribute("msg", msg);
+       }
+       return businessCarouselService.findAll();
     }
     @ResponseBody
     @RequestMapping("/updateByPrimaryKey.action")
     public int  updateByPrimaryKey(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record){
         return businessCarouselService.updateByPrimaryKey(record);
     }
-*/
+
 }
 
