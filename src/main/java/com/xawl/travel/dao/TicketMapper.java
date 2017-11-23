@@ -2,6 +2,8 @@ package com.xawl.travel.dao;
 
 import com.xawl.travel.pojo.Ticket;
 
+import java.util.List;
+
 public interface TicketMapper {
     int deleteByPrimaryKey(String tid);
 
@@ -14,4 +16,6 @@ public interface TicketMapper {
     int updateByPrimaryKeySelective(Ticket record);
 
     int updateByPrimaryKey(Ticket record);
+
+    List<Ticket> selectTicketByBid(String bid);
 }
