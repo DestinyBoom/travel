@@ -17,7 +17,7 @@ public class User {
 
     private String headImgPath;
 
-    private Boolean isAct;
+    private Integer token;
 
     private Boolean isdel;
 
@@ -77,12 +77,12 @@ public class User {
         this.headImgPath = headImgPath == null ? null : headImgPath.trim();
     }
 
-    public Boolean getIsAct() {
-        return isAct;
+    public Integer getToken() {
+        return token;
     }
 
-    public void setIsAct(Boolean isAct) {
-        this.isAct = isAct;
+    public void setToken(Integer token) {
+        this.token = token;
     }
 
     public Boolean getIsdel() {

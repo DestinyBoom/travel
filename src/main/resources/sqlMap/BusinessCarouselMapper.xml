@@ -12,6 +12,10 @@
   <sql id="Base_Column_List" >
     bcid, name, ImgPath, type, bid, status
   </sql>
+
+  <select id="findAll"  resultType="com.xawl.travel.pojo.BusinessCarousel">
+    select * from tb_business_carousel
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

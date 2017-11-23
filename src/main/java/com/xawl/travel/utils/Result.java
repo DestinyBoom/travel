@@ -1,6 +1,5 @@
 package com.xawl.travel.utils;
 
-
 /**
  * Created Administrator on 2017/11/17.
  */
@@ -19,9 +18,7 @@ public class Result {
         this.data = data;
     }
 
-    public static Result success() {
-        return new Result(200, "操作成功", null);
-    }
+    public static Result success() {return new Result(200, "操作成功", null);}
 
     public static Result success(String msg) {
         return new Result(200, msg, null);
@@ -67,13 +64,10 @@ public class Result {
         this.status = status;
     }
 
-    @Override
     public String toString() {
         return "Result [status=" + status + ", msg=" + msg + ", data=" + data + "]";
     }
-
 }
-
 
 
 

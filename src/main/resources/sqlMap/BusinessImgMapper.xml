@@ -88,4 +88,13 @@
     from tb_business_img
     where bid = #{bid,jdbcType=CHAR}
   </select>
+
+  <delete id="deleteByImgIds" parameterType="java.lang.String" >
+    delete from tb_business_img
+    where imgID in
+    <foreach collection="array" open="(" close=")" separator="," item="ids">
+      #{ids}
+    </foreach>
+  </delete>
+
 </mapper>

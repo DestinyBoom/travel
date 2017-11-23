@@ -2,6 +2,8 @@ package com.xawl.travel.controller;
 
 import com.xawl.travel.pojo.Business;
 import com.xawl.travel.service.BusinessService;
+import com.xawl.travel.utils.CreateId;
+import com.xawl.travel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +23,24 @@ public class BusinessController {
     @Autowired
     private BusinessService businessService;
 
-    //查找全部信息
+    /**
+     *    查找全部信息
+     */
     @ResponseBody
     @RequestMapping("/findAll.action")
     public List<Business> findAll(HttpServletRequest request, HttpServletResponse response){
         return businessService.findAll();
+    }
+
+    /**
+     *通过名称模糊查询
+     * @param bname
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/findByBname.action")
+    public List<Business> findByBname(HttpServletRequest request, HttpServletResponse response,String bname){
+      return businessService.findByBname(bname);
     }
 
     @ResponseBody
@@ -36,8 +51,11 @@ public class BusinessController {
 
     @ResponseBody
     @RequestMapping("/insert.action")
-    public int insert(Business record){
-        return businessService.insert(record);
+    public Result insert(Business record){
+        record.setBid(CreateId.gitId());
+        record.setIsUse(false);
+        Result result=  businessService.insert(record);
+        return result ;
     }
 
     @ResponseBody

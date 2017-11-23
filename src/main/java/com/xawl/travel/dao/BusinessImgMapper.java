@@ -2,6 +2,8 @@ package com.xawl.travel.dao;
 
 import com.xawl.travel.pojo.BusinessImg;
 
+import java.util.List;
+
 public interface BusinessImgMapper {
     int deleteByPrimaryKey(String imgid);
 
@@ -9,11 +11,13 @@ public interface BusinessImgMapper {
 
     int insertSelective(BusinessImg record);
 
-    BusinessImg selectByPrimaryKey(String imgid);
+    BusinessImg selectByPrimaryKey(BusinessImg imgid);
 
-    BusinessImg selectImgByBid(String bid);
+    List<BusinessImg> selectImgByBid(String bid);
 
     int updateByPrimaryKeySelective(BusinessImg record);
 
     int updateByPrimaryKey(BusinessImg record);
+
+    int deleteByImgIds(String[] img_ids);
 }
