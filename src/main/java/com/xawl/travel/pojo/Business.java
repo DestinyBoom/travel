@@ -32,6 +32,7 @@ public class Business {
     }
 
     public void setBid(String bid) {
+
         this.bid = bid == null ? null : bid.trim();
     }
 

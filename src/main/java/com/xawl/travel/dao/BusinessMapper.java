@@ -10,7 +10,7 @@ public interface BusinessMapper {
     List<Business> findAll();
 
     //通过名称模糊查询
-    List<Business> findByBname(String bname);
+    List<Business> findByBname(Business bname);
 
     Business selectByPrimaryKey(String bid);
 
@@ -23,5 +23,7 @@ public interface BusinessMapper {
     int updateByPrimaryKeySelective(Business record);
 
     int updateByPrimaryKey(Business record);
+
+    int updateBusinessDisable(Business record);
 
 }

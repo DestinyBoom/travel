@@ -155,4 +155,14 @@
     from tb_business
     where bname like  '%${bname}%'
   </select>
+
+  <!--设置商家停用-->
+  <update id="updateBusinessDisable">
+    UPDATE tb_business  SET is_use=1 WHERE is_use=0
+  </update>
+
+  <!--设置商家使用-->
+  <update id="updateBusinessAble">
+    UPDATE tb_business  SET is_use=0 WHERE is_use=1
+  </update>
 </mapper>

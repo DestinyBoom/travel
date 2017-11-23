@@ -26,12 +26,19 @@ public class BusinessService {
     }
 
     /**
-     * 模糊查询
+     * 通过名称模糊查询
      * @param bname
      * @return
      */
-   public List<Business> findByBname(String bname){
-        return businessMapper.findByBname(bname);
+   public List<Business> findByBname(Business bname) {
+       /* try{
+            businessMapper.findByBname(bname);
+            return Result.success(bname);
+        }catch(Exception e){
+            e.printStackTrace();
+            return Result.fail(405,"没有相关的查询记录");
+       }*/
+       return businessMapper.findByBname(bname);
     }
 
     public Business selectByPrimaryKey(String bid){
@@ -48,8 +55,14 @@ public class BusinessService {
         }
     }
 
-    public int insertSelective(Business record){
-        return businessMapper.insertSelective(record);
+    public Result insertSelective(Business record){
+        try{
+            businessMapper.insertSelective(record);
+            return Result.success(record);
+        }catch(Exception e){
+            e.printStackTrace();
+            return Result.fail(405,"注册失败");
+        }
     }
 
     public int updateByPrimaryKey(Business record){
@@ -59,4 +72,17 @@ public class BusinessService {
     public int updateByPrimaryKeySelective(Business record){
         return businessMapper.updateByPrimaryKeySelective(record);
     }
+
+    /**
+     * 停用
+     */
+   /* public Result updateBusinessDisable(Business record){
+        try{
+            businessMapper.updateBusinessDisable(record);
+            return Result.success("");
+        }catch (Exception e){
+
+        }
+        return
+    }*/
 }
