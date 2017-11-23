@@ -41,7 +41,7 @@ public class BusinessImgController {
     @ResponseBody
     @RequestMapping("/uploadImg.action")
     public Result uploadImg(HttpServletRequest request, HttpServletResponse response,
-                            @RequestParam("businessImg") BusinessImg businessImg, @RequestParam("file") MultipartFile file) throws Exception {
+                           BusinessImg businessImg,MultipartFile file) throws Exception {
 
         //图片上传
         UploadImages uploadImage = new UploadImages();
