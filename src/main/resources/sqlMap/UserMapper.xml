@@ -9,11 +9,11 @@
     <result column="pass" property="pass" jdbcType="CHAR" />
     <result column="sex" property="sex" jdbcType="CHAR" />
     <result column="head_img_path" property="headImgPath" jdbcType="CHAR" />
-    <result column="is_act" property="isAct" jdbcType="BIT" />
+    <result column="token" property="token" jdbcType="INT" />
     <result column="isdel" property="isdel" jdbcType="BIT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    uid, phone, account, signin_time, pass, sex, head_img_path, is_act, isdel
+    uid, phone, account, signin_time, pass, sex, head_img_path, token, isdel
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -27,10 +27,10 @@
   </delete>
   <insert id="insert" parameterType="com.xawl.travel.pojo.User" >
     insert into tb_user (uid, phone, account, signin_time, 
-      pass, sex, head_img_path, is_act, 
+      pass, sex, head_img_path, token,
       isdel)
     values (#{uid,jdbcType=CHAR}, #{phone,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{signinTime,jdbcType=TIMESTAMP}, 
-      #{pass,jdbcType=CHAR}, #{sex,jdbcType=CHAR}, #{headImgPath,jdbcType=CHAR}, #{isAct,jdbcType=BIT}, 
+      #{pass,jdbcType=CHAR}, #{sex,jdbcType=CHAR}, #{headImgPath,jdbcType=CHAR}, #{token,jdbcType=BIT},
       #{isdel,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.xawl.travel.pojo.User" >
@@ -57,8 +57,8 @@
       <if test="headImgPath != null" >
         head_img_path,
       </if>
-      <if test="isAct != null" >
-        is_act,
+      <if test="token != null" >
+        token,
       </if>
       <if test="isdel != null" >
         isdel,
@@ -86,8 +86,8 @@
       <if test="headImgPath != null" >
         #{headImgPath,jdbcType=CHAR},
       </if>
-      <if test="isAct != null" >
-        #{isAct,jdbcType=BIT},
+      <if test="token != null" >
+        #{token,jdbcType=BIT},
       </if>
       <if test="isdel != null" >
         #{isdel,jdbcType=BIT},
@@ -115,8 +115,8 @@
       <if test="headImgPath != null" >
         head_img_path = #{headImgPath,jdbcType=CHAR},
       </if>
-      <if test="isAct != null" >
-        is_act = #{isAct,jdbcType=BIT},
+      <if test="token != null" >
+        token = #{token,jdbcType=BIT},
       </if>
       <if test="isdel != null" >
         isdel = #{isdel,jdbcType=BIT},
@@ -132,7 +132,7 @@
       pass = #{pass,jdbcType=CHAR},
       sex = #{sex,jdbcType=CHAR},
       head_img_path = #{headImgPath,jdbcType=CHAR},
-      is_act = #{isAct,jdbcType=BIT},
+      token = #{token,jdbcType=BIT},
       isdel = #{isdel,jdbcType=BIT}
     where uid = #{uid,jdbcType=CHAR}
   </update>

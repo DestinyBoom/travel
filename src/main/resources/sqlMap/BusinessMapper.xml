@@ -137,4 +137,22 @@
     where bid = #{bid,jdbcType=CHAR}
   </update>
 
+  <!--lzp-->
+  <select id="findAll" resultType="com.xawl.travel.pojo.Business">
+     SELECT  * from tb_business;
+  </select>
+<!--商家名称查询
+  <select id="findByBname" parameterType="java.lang.String" resultType="com.xawl.travel.pojo.Business">
+    select
+    <include refid="Base_Column_List"/>s
+    from tb_business
+    where bname=#{bname,jdbcType=CHAR}
+  </select>-->
+  <!--商家名称模糊查询-->
+  <select id="findByBname" parameterType="com.xawl.travel.pojo.Business" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_business
+    where bname like  '%${bname}%'
+  </select>
 </mapper>

@@ -23,11 +23,24 @@ public class BusinessController {
     @Autowired
     private BusinessService businessService;
 
-    //查找全部信息
+    /**
+     *    查找全部信息
+     */
     @ResponseBody
     @RequestMapping("/findAll.action")
     public List<Business> findAll(HttpServletRequest request, HttpServletResponse response){
         return businessService.findAll();
+    }
+
+    /**
+     *通过名称模糊查询
+     * @param bname
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/findByBname.action")
+    public List<Business> findByBname(HttpServletRequest request, HttpServletResponse response,String bname){
+      return businessService.findByBname(bname);
     }
 
     @ResponseBody

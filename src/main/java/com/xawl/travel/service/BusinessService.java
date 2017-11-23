@@ -13,11 +13,25 @@ import java.util.List;
  */
 @Service
 public class BusinessService {
-
+    @Autowired
     BusinessMapper businessMapper;
 
+    /**
+     * 查询全部
+     * @return
+     */
     public List<Business> findAll(){
+
         return businessMapper.findAll();
+    }
+
+    /**
+     * 模糊查询
+     * @param bname
+     * @return
+     */
+   public List<Business> findByBname(String bname){
+        return businessMapper.findByBname(bname);
     }
 
     public Business selectByPrimaryKey(String bid){

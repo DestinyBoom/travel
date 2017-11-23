@@ -6,8 +6,11 @@ import java.util.List;
 
 public interface BusinessMapper {
 
-    //查询
+    //查询全部
     List<Business> findAll();
+
+    //通过名称模糊查询
+    List<Business> findByBname(String bname);
 
     Business selectByPrimaryKey(String bid);
 
