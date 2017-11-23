@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,25 +49,22 @@ public class BusinessImgService {
     }
 
     /*删除图片*/
-    public Result deleteImages(String ids,HttpServletRequest request) {
+    public int deleteImages(String ids,HttpServletRequest request) {
 
-        List<String> img_ids = new ArrayList<String>();
         BusinessImg businessImg = new BusinessImg();
         String path1 = request.getSession().getServletContext().getRealPath("/");
-        String [] str_ids = ids.split(",");
-        for(String str : str_ids) {
+        String [] img_ids = ids.split(",");
+        for(String str : img_ids) {
             businessImg.setImgid(str);
             businessImg = businessImgMapper.selectByPrimaryKey(businessImg);
-            img_ids.add(str);
             if(businessImg == null){
-                return Result.fail("删除的图片不存在");
+                return 0;
             }
             File image= new File(path1+businessImg.getImgPath());
             if(image.exists()){
                 image.delete();
             }
         }
-        businessImgMapper.deleteByPrimaryKey(ids);
-        return Result.success("删除成功");
+        return businessImgMapper.deleteByImgIds(img_ids);
     }
 }

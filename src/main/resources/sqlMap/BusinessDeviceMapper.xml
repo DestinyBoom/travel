@@ -55,4 +55,13 @@
     set bid = #{bid,jdbcType=CHAR}
     where did = #{did,jdbcType=CHAR}
   </update>
+
+  <!--wt-->
+  <select id="selectDeviceByBid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_business_device
+    where bid = #{bid,jdbcType=CHAR}
+  </select>
+
 </mapper>

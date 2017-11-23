@@ -13,9 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 
 /**
@@ -42,7 +41,7 @@ public class BusinessImgController {
     @ResponseBody
     @RequestMapping("/uploadImg.action")
     public Result uploadImg(HttpServletRequest request, HttpServletResponse response,
-                            @RequestParam("businessImg") BusinessImg businessImg, @RequestParam("file") MultipartFile file) throws Exception {
+                           BusinessImg businessImg,MultipartFile file) throws Exception {
 
         //图片上传
         UploadImages uploadImage = new UploadImages();
@@ -74,15 +73,20 @@ public class BusinessImgController {
 
     /*单个或批量删除图片*/
      @ResponseBody
-     @RequestMapping(value="/deleteImg.action/{ids}", method= RequestMethod.DELETE)
-     public Result deleteImg(HttpServletRequest request, HttpServletResponse response,@PathVariable("ids")String ids)throws Exception
+     @RequestMapping("/deleteImg.action")
+     public Result deleteImg(HttpServletRequest request, HttpServletResponse response, @RequestParam("ids") String ids)throws Exception
      {
          //批量删除
         if (ids == null || ids.equals("")){
             return Result.fail(300,"要删除的id不存在");
         }
-         businessImgService.deleteImages(ids,request);
-         return Result.success();
+         int delCount = businessImgService.deleteImages(ids,request);
+         if(delCount == 0){
+             return Result.fail("删除失败");
+         }else{
+             return Result.success("删除成功");
+         }
+
      }
 
 
