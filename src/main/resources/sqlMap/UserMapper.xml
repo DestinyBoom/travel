@@ -9,7 +9,7 @@
     <result column="pass" property="pass" jdbcType="CHAR" />
     <result column="sex" property="sex" jdbcType="CHAR" />
     <result column="head_img_path" property="headImgPath" jdbcType="CHAR" />
-    <result column="token" property="token" jdbcType="INT" />
+    <result column="token" property="token" jdbcType="INTEGER" />
     <result column="isdel" property="isdel" jdbcType="BIT" />
   </resultMap>
   <sql id="Base_Column_List" >
