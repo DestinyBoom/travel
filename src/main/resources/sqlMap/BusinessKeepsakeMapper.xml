@@ -92,4 +92,23 @@
       img_path = #{imgPath,jdbcType=CHAR}
     where kid = #{kid,jdbcType=CHAR}
   </update>
+
+  <!--wt-->
+  <select id="selectKeepsakeByBid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_business_keepsake
+    where bid = #{bid,jdbcType=CHAR}
+  </select>
+
+  <delete id="deleteKeepsakeByKid" parameterType="java.lang.String" >
+    delete from tb_business_keepsake
+    where kid in
+    <foreach collection="array" open="(" close=")" separator="," item="ids">
+      #{ids}
+    </foreach>
+  </delete>
+
 </mapper>
