@@ -49,9 +49,9 @@ public class BusinessController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/findById.action")
-    public Business selectByPrimaryKey(String bid){
-        return businessService.selectByPrimaryKey(bid);
+    @RequestMapping("/selectByBid.action")
+    public int selectByBid(String bid){
+        return businessService.selectByBid(bid);
     }
 
     /**
@@ -94,7 +94,24 @@ public class BusinessController {
         return businessService.updateByPrimaryKeySelective(record);
     }
 
-    /*public Result updateBusinessDisable(){
+    /**
+     * 商家停用
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/updateBusinessDisable.action")
+    public Result updateBusinessDisable(String bid){
+       return businessService.updateBusinessDisable(bid);
+    }
 
-    }*/
+
+    /**
+     * 商家可以使用
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/updateBusinessAble.action")
+    public Result updateBusinessAble(String bid){
+        return businessService.updateBusinessAble(bid);
+    }
 }

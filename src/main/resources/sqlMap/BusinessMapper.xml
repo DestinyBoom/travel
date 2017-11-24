@@ -21,6 +21,7 @@
     from tb_business
     where bid = #{bid,jdbcType=CHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tb_business
     where bid = #{bid,jdbcType=CHAR}
@@ -141,7 +142,14 @@
   <select id="findAll" resultType="com.xawl.travel.pojo.Business">
      SELECT  * from tb_business;
   </select>
-<!--商家名称查询
+  <!--通过Bid查询-->
+  <select id="selectByBid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_business
+    where bid = #{bid,jdbcType=CHAR}
+  </select>
+  <!--商家名称查询
   <select id="findByBname" parameterType="java.lang.String" resultType="com.xawl.travel.pojo.Business">
     select
     <include refid="Base_Column_List"/>s
@@ -157,12 +165,12 @@
   </select>
 
   <!--设置商家停用-->
-  <update id="updateBusinessDisable">
-    UPDATE tb_business  SET is_use=1 WHERE is_use=0
+  <update id="updateBusinessDisable" parameterType="java.lang.String">
+    UPDATE tb_business  SET is_use=1 WHERE is_use=0 and bid=#{bid,jdbcType=CHAR}
   </update>
 
   <!--设置商家使用-->
-  <update id="updateBusinessAble">
-    UPDATE tb_business  SET is_use=0 WHERE is_use=1
+  <update id="updateBusinessAble" parameterType="java.lang.String">
+    UPDATE tb_business  SET is_use=0 WHERE is_use=1  and bid=#{bid,jdbcType=CHAR}
   </update>
 </mapper>

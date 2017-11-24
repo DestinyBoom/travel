@@ -14,6 +14,8 @@ public interface BusinessMapper {
 
     Business selectByPrimaryKey(String bid);
 
+    int  selectByBid(String bid);
+
     int deleteByPrimaryKey(String bid);
 
     int insert(Business record);
@@ -24,6 +26,8 @@ public interface BusinessMapper {
 
     int updateByPrimaryKey(Business record);
 
-    int updateBusinessDisable(Business record);
+    int updateBusinessDisable(String bid);
+
+    int updateBusinessAble(String bid);
 
 }

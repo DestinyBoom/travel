@@ -7,7 +7,6 @@ import java.util.List;
 public interface UserMapper {
     int deleteByPrimaryKey(String uid);
 
-
     int insert(User record);
 
     int insertSelective(User record);
@@ -18,5 +17,15 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
+    /*lzp*/
     List<User> findAll();
+
+    List<User> findByAccount(User account);
+    /* User findByAccount(User account);*/
+    int selectByUid(User uid);
+
+    int updateUserDisable(User uid);
+
+    int updateUserAble(User uid);
+
 }

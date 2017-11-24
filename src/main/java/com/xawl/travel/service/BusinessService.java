@@ -45,6 +45,10 @@ public class BusinessService {
         return businessMapper.selectByPrimaryKey(bid);
     }
 
+    public int selectByBid(String bid){
+        return businessMapper.selectByBid(bid);
+    }
+
     public Result insert(Business record){
         try {
             businessMapper.insert(record);
@@ -76,13 +80,31 @@ public class BusinessService {
     /**
      * 停用
      */
-   /* public Result updateBusinessDisable(Business record){
-        try{
-            businessMapper.updateBusinessDisable(record);
-            return Result.success("");
-        }catch (Exception e){
-
+    public Result updateBusinessDisable(String bid) {
+        try {
+            if (businessMapper.selectByBid(bid)!= 0) {
+                businessMapper.updateBusinessDisable(bid);
+                return Result.success(200);
+            }
+            return Result.fail(405, "查询不到此商家");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.fail(405, "修改失败");
         }
-        return
-    }*/
+    }
+        /**
+         * 设置可以使用
+         */
+    public Result updateBusinessAble(String bid){
+        try{
+            if(businessMapper.selectByBid(bid)!=0){
+                businessMapper.updateBusinessAble(bid);
+                return Result.success(200);
+            }
+            return Result.fail(405,"查询不到此商家");
+        }catch(Exception e){
+            e.printStackTrace();
+            return Result.fail(405,"修改失败");
+        }
+    }
 }
