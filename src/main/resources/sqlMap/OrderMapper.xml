@@ -111,4 +111,13 @@
     where bid = #{bid,jdbcType=CHAR}
   </select>
 
+
+  <select id="selectOrderByStatus" resultMap="BaseResultMap" parameterType="com.xawl.travel.pojo.Order" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_order
+    where status = #{status,jdbcType=SMALLINT}
+    AND bid = #{bid,jdbcType=CHAR}
+  </select>
+
 </mapper>
