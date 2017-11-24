@@ -38,6 +38,20 @@ public class BusinessKeepsakeService {
         }
     }
 
+    public BusinessKeepsake selectKeepsakeByKid(String kid) {
+        if (kid == null || kid == "") {
+            return null;
+        }
+        try {
+            BusinessKeepsake businessKeepsake = businessKeepsakeMapper.selectByPrimaryKey(kid);
+            return businessKeepsake;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     public int addKeepsakeByBid(BusinessKeepsake businessKeepsake) {
 
         return businessKeepsakeMapper.insertSelective(businessKeepsake);
@@ -59,6 +73,12 @@ public class BusinessKeepsakeService {
 
         }
         return businessKeepsakeMapper.deleteKeepsakeByKid(kids);
+    }
+
+
+    public int updateKeepsakeByKid(BusinessKeepsake businessKeepsake) {
+
+        return businessKeepsakeMapper.updateByPrimaryKeySelective(businessKeepsake);
     }
 }
 

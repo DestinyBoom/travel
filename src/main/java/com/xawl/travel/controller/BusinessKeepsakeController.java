@@ -84,7 +84,31 @@ public class BusinessKeepsakeController {
         }else{
             return Result.success("删除成功");
         }
+    }
 
+
+    @ResponseBody
+    @RequestMapping("/updateKeepsake.action")
+    public Result updateKeepsake(HttpServletRequest request, HttpServletResponse response,
+                              BusinessKeepsake businessKeepsake, MultipartFile multipartFile) throws Exception {
+
+        if (!multipartFile.getOriginalFilename().isEmpty()) {
+            businessKeepsake = businessKeepsakeService.selectKeepsakeByKid(businessKeepsake.getKid());
+            ResourceUtils.upload(request, multipartFile, multipartFile.getOriginalFilename());
+            ResourceUtils.deleteResource(businessKeepsake.getImgPath(), request);
+            businessKeepsake.setImgPath(multipartFile.getOriginalFilename());
+        }
+        try {
+            int num = businessKeepsakeService.updateKeepsakeByKid(businessKeepsake);
+            if (num == 0) {
+                return Result.fail(300, "修改失败,插入数据库失败");
+            } else {
+                return Result.success("修改成功");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.fail(500, "系统错误");
+        }
     }
 
 }
