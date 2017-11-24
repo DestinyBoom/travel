@@ -31,9 +31,9 @@ public class BusinessImgController {
     /*通过商家id查询轮播图*/
     @ResponseBody
     @RequestMapping("/selectImgByBid.action")
-    public Result selectImgByBid(String bid, @RequestParam(value = "pn", defaultValue = "1") Integer pn, @RequestParam(value = "num", defaultValue = "6") Integer num) throws Exception {
+    public Result selectImgByBid(String bid, @RequestParam(value = "pn", defaultValue = "1") Integer pn) throws Exception {
 
-        Result result = businessImgService.selectImgByBid(bid, pn, num);
+        Result result = businessImgService.selectImgByBid(bid, pn);
         return result;
     }
 
@@ -46,7 +46,7 @@ public class BusinessImgController {
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-        String path2 = "Img/businessImps";  //保存的文件夹
+        String path2 = "img/businessImg";  //保存的文件夹
         String imgPath = uploadImage.upLoadImage(request, file, path1, path2);
         if (!imgPath.contains(".")) {
             return Result.fail("未选择上传文件");
@@ -62,7 +62,7 @@ public class BusinessImgController {
             if (rows == 0) {
                 return Result.fail(300, "添加失败,插入数据库失败");
             } else {
-                return Result.success(rows);
+                return Result.success("添加成功");
             }
         } catch (Exception e) {
             e.printStackTrace();

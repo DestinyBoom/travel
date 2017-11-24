@@ -101,4 +101,14 @@
       bid = #{bid,jdbcType=CHAR}
     where oid = #{oid,jdbcType=CHAR}
   </update>
+
+
+  <!--自定义查询订单-->
+  <select id="selectOrderByBid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_order
+    where bid = #{bid,jdbcType=CHAR}
+  </select>
+
 </mapper>

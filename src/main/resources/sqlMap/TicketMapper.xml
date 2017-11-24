@@ -90,4 +90,13 @@
       info = #{info,jdbcType=CHAR}
     where tid = #{tid,jdbcType=CHAR}
   </update>
+
+  <!--wt-->
+  <select id="selectTicketByBid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_ticket
+    where bid = #{bid,jdbcType=CHAR}
+  </select>
+
 </mapper>
