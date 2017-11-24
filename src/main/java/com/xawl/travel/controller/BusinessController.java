@@ -33,22 +33,32 @@ public class BusinessController {
     }
 
     /**
-     *通过名称模糊查询
-     * @param bname
-     * @return
+     *    通过名称模糊查询
+     *    @param bname
+     *    @return
      */
     @ResponseBody
     @RequestMapping("/findByBname.action")
-    public List<Business> findByBname(HttpServletRequest request, HttpServletResponse response,String bname){
-      return businessService.findByBname(bname);
+    public List<Business> findByBname(Business bname){
+        return businessService.findByBname(bname);
     }
 
+    /**
+     * 通过主键查询
+     * @param bid
+     * @return
+     */
     @ResponseBody
-    @RequestMapping("/findById.action")
-    public Business selectByPrimaryKey(String bid){
-        return businessService.selectByPrimaryKey(bid);
+    @RequestMapping("/selectByBid.action")
+    public int selectByBid(String bid){
+        return businessService.selectByBid(bid);
     }
 
+    /**
+     * 注册
+     * @param record
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/insert.action")
     public Result insert(Business record){
@@ -60,10 +70,18 @@ public class BusinessController {
 
     @ResponseBody
     @RequestMapping("/insertSelective.action")
-    public int insertSelective(Business record){
-        return businessService.insertSelective(record);
+    public Result insertSelective(Business record){
+        record.setBid(CreateId.gitId());
+        record.setIsUse(false);
+        Result result=businessService.insertSelective(record);
+        return result;
     }
 
+    /**
+     * 通过主键修改
+     * @param record
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/updateById.action")
     public int updateByPrimaryKey(Business record){
@@ -74,5 +92,26 @@ public class BusinessController {
     @RequestMapping("/updateByIdSelective.action")
     public int updateByPrimaryKeySelective(Business record){
         return businessService.updateByPrimaryKeySelective(record);
+    }
+
+    /**
+     * 商家停用
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/updateBusinessDisable.action")
+    public Result updateBusinessDisable(String bid){
+       return businessService.updateBusinessDisable(bid);
+    }
+
+
+    /**
+     * 商家可以使用
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/updateBusinessAble.action")
+    public Result updateBusinessAble(String bid){
+        return businessService.updateBusinessAble(bid);
     }
 }

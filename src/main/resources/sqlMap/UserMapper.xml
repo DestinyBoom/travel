@@ -142,4 +142,27 @@
   <select id="findAll" resultType="com.xawl.travel.pojo.User">
     SELECT * FROM tb_user
   </select>
+  <!--lzp-->
+  <!--通过Uid查询-->
+  <select id="selectByUid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_user
+    where uid = #{uid,jdbcType=CHAR}
+  </select>
+  <!--用户名称模糊查询-->
+  <select id="findByAccount" parameterType="com.xawl.travel.pojo.User" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_user
+    where account like '%${account}%'
+  </select>
+  <!--停用-->
+  <update id="updateUserDisable" parameterType="com.xawl.travel.pojo.User">
+   UPDATE tb_user SET token=1 WHERE token=0 AND uid=#{uid,jdbcType=CHAR};
+  </update>
+  <!--复用-->
+  <update id="updateUserAble" parameterType="com.xawl.travel.pojo.User">
+    UPDATE tb_user SET token=0 WHERE token=1 AND uid=#{uid,jdbcType=CHAR};
+  </update>
 </mapper>
