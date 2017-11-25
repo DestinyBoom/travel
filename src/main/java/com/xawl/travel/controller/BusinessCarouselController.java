@@ -2,6 +2,7 @@ package com.xawl.travel.controller;
 
 import com.xawl.travel.pojo.BusinessCarousel;
 import com.xawl.travel.service.BusinessCarouselService;
+import com.xawl.travel.utils.Result;
 import com.xawl.travel.utils.UploadImages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,37 +27,40 @@ public class BusinessCarouselController {
     @ResponseBody
     @RequestMapping("/findAll.action")
     public List<BusinessCarousel> findAll(HttpServletRequest request, HttpServletResponse response) {
-       // System.out.println(businessCarouselService.findAll());
+
         return businessCarouselService.findAll();
     }
 
     @ResponseBody
     @RequestMapping("/selectByPrimaryKey.action")
     public BusinessCarousel selectByPrimaryKey(HttpServletRequest request, HttpServletResponse response, String bcid) {
-        //System.out.println(bcid);
-        //System.out.println(businessCarouselService.selectByPrimaryKey);
+
         return businessCarouselService.selectByPrimaryKey(bcid);
     }
 
     @ResponseBody
     @RequestMapping("/deleteByPrimaryKey.action")
-    public List<BusinessCarousel> deleteByPrimaryKey(HttpServletRequest request, HttpServletResponse response, String bcid) {
+    public Result deleteByPrimaryKey(HttpServletRequest request, HttpServletResponse response, String bcid) {
         String ids = request.getParameter("bcid");
-        System.out.println(bcid);
-        String msg;
-        if (ids.length() != 0) {
-            int rows = businessCarouselService.deleteByPrimaryKey(bcid);
-            if (rows == 0) {
-                msg = "删除失败,此id不存在";
-                request.setAttribute("msg", msg);
-            } else {
-                msg = "删除成功";
-                request.setAttribute("msg", msg);
+      /*  System.out.println(bcid);
+        String msg;*/
+        try {
+            if (ids.length() != 0) {
+                int rows = businessCarouselService.deleteByPrimaryKey(bcid);
+                if (rows == 0) {
+                    return Result.fail(300, "删除失败");
+                } else {
+                    return Result.success("删除成功");
+                }
             }
-            // Object s=request.getAttribute("msg");
-            // System.out.println(s);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return Result.fail(500, "系统错误");
         }
-        return businessCarouselService.findAll();
+        // Object s=request.getAttribute("msg");
+        // System.out.println(s);
+        // return businessCarouselService.findAll();
+        return Result.fail(500, "系统错误");
     }
 
     @ResponseBody
@@ -67,55 +71,49 @@ public class BusinessCarouselController {
 
     @ResponseBody
     @RequestMapping("/insertSelective.action")
-    public List<BusinessCarousel> insertSelective(HttpServletRequest request, HttpServletResponse response, BusinessCarousel record, MultipartFile file) {
-            String msg;
+    public Result insertSelective(HttpServletRequest request, HttpServletResponse response, BusinessCarousel record, MultipartFile file) {
+           /* String msg;
        if(record.getName() == null || record.getName().equals("")) {
             msg = "添加失败，数据名不能为空";
             request.setAttribute("msg", msg);
             Object s = request.getAttribute("msg");
             System.out.println(s);
             return businessCarouselService.findAll();
-        }
+        }*/
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
         String path2 = "img/CarouselImages"; //保存的文件夹
         String bigImg = uploadImage.upLoadImage(request, file, path1, path2);
         if (!bigImg.contains(".")) {
-            msg = "未选择文件";
-            request.setAttribute("msg", msg);
-            Object s1 = request.getAttribute("msg");
-            System.out.println(s1);
+            return Result.fail("未选择上传文件");
         }
        record.setImgpath(bigImg);
         try {
             int rows = businessCarouselService.insertSelective(record);
             if (rows == 0) {
-                msg = "添加失败,插入数据库失败";
-                request.setAttribute("msg", msg);
+                return Result.fail(300, "添加失败,插入数据库失败");
             } else {
-                msg = "添加成功";
-                request.setAttribute("msg", msg);
+                return Result.success("添加成功");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            msg = "添加失败,服务器异常";
-            request.setAttribute("msg", msg);
+            return Result.fail(500, "系统错误");
         }
-        Object s2 = request.getAttribute("msg");
+       /* Object s2 = request.getAttribute("msg");
         System.out.println(s2);
-        return businessCarouselService.findAll();
+        return businessCarouselService.findAll();*/
     }
 
    @ResponseBody
     @RequestMapping("/updateByPrimaryKeySelective.action")
-    public List<BusinessCarousel> updateByPrimaryKeySelective(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record, String bcid,MultipartFile file){
-        String msg;
+    public Result updateByPrimaryKeySelective(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record, String bcid,MultipartFile file){
+      /*  String msg;
         if(record.getName()==null||record.getName().equals("")){
             msg="修改失败，数据名不能为空";
             request.setAttribute("msg",msg);
            return businessCarouselService.findAll();
-        }
+        }*/
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
@@ -135,19 +133,16 @@ public class BusinessCarouselController {
         }
        try {
            int rows = businessCarouselService.updateByPrimaryKeySelective(record);
-           if(rows == 0){
-               msg="修改失败,注入数据库失败";
-               request.setAttribute("msg", msg);
-           }else{
-               msg="修改成功";
-               request.setAttribute("msg", msg);
+           if (rows == 0) {
+               return Result.fail(300, "修改失败");
+           } else {
+               return Result.success("修改成功");
            }
        } catch (Exception e) {
            e.printStackTrace();
-           msg="修改失败,服务器异常";
-           request.setAttribute("msg", msg);
+           return Result.fail(500, "系统错误");
        }
-       return businessCarouselService.findAll();
+       //return businessCarouselService.findAll();
     }
     @ResponseBody
     @RequestMapping("/updateByPrimaryKey.action")
