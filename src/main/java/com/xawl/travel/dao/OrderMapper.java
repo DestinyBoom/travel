@@ -2,6 +2,7 @@ package com.xawl.travel.dao;
 
 import com.xawl.travel.pojo.Order;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface OrderMapper {
@@ -18,4 +19,6 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
 
     List<Order> selectOrderByBid(String bid);
+
+    List<Order> selectOrderByStatus(Order order);
 }
