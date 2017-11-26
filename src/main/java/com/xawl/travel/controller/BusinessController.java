@@ -49,6 +49,12 @@ public class BusinessController {
      * @return
      */
     @ResponseBody
+    @RequestMapping("/selectByPrimaryKey.action")
+    public Business selectByPrimaryKey(String bid){
+        return businessService.selectByPrimaryKey(bid);
+    }
+
+    @ResponseBody
     @RequestMapping("/selectByBid.action")
     public int selectByBid(String bid){
         return businessService.selectByBid(bid);
