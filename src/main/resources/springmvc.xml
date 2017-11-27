@@ -54,4 +54,18 @@
         <property name="maxInMemorySize" value="4096"/>
     </bean>
 
+    <!--跨域拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="interceptor.CommonInterceptor">
+                <property name="excludedUrls">
+                    <list>
+                        <value>/</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>
