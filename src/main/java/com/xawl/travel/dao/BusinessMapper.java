@@ -7,7 +7,8 @@ import java.util.List;
 public interface BusinessMapper {
 
     //查询全部
-    List<Business> findAll();
+   /* List<Business> findAll();*/
+    List<Business> findAll(Integer page);
 
     //通过名称模糊查询
     List<Business> findByBname(Business bname);

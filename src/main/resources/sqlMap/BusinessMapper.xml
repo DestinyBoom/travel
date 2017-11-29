@@ -139,8 +139,11 @@
   </update>
 
   <!--lzp-->
-  <select id="findAll" resultType="com.xawl.travel.pojo.Business">
+ <!-- <select id="findAll" resultType="com.xawl.travel.pojo.Business">
      SELECT  * from tb_business;
+  </select>-->
+  <select id="findAll" parameterType="java.lang.Integer" resultType="com.xawl.travel.pojo.Business">
+    SELECT  * from tb_business;
   </select>
   <!--通过Bid查询-->
   <select id="selectByBid" parameterType="java.lang.String" resultType="java.lang.Integer">

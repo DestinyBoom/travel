@@ -28,8 +28,11 @@ public class BusinessController {
      */
     @ResponseBody
     @RequestMapping("/findAll.action")
-    public List<Business> findAll(HttpServletRequest request, HttpServletResponse response){
+   /* public List<Business> findAll(HttpServletRequest request, HttpServletResponse response){
         return businessService.findAll();
+    }*/
+    public Result findAll(Integer page,HttpServletRequest request, HttpServletResponse response){
+        return businessService.findAll(page);
     }
 
     /**

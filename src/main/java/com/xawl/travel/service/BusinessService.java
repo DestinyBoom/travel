@@ -1,5 +1,7 @@
 package com.xawl.travel.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xawl.travel.dao.BusinessMapper;
 import com.xawl.travel.pojo.Business;
 import com.xawl.travel.utils.Result;
@@ -20,9 +22,25 @@ public class BusinessService {
      * 查询全部
      * @return
      */
-    public List<Business> findAll(){
+    /*public List<Business> findAll(){
 
         return businessMapper.findAll();
+    }*/
+    public Result findAll(Integer page){
+        //设置显示10条记录  pageNum是当前页面(页数),pageSize是每页显示的数据行数
+        PageHelper.startPage(page,5);
+        List<Business> list= businessMapper.findByBname(null);
+        PageInfo pageInfo=new PageInfo(list);
+        Result result=new Result();
+        if(page<=pageInfo.getLastPage()){
+            result.setStatus(200);
+            result.setMsg("查询成功");
+            result.setData(pageInfo);
+        }else{
+            result.setStatus(405);
+            result.setMsg("没有记录数");
+        }
+        return result;
     }
 
     /**
