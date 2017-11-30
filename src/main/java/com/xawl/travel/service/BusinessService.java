@@ -4,10 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xawl.travel.dao.BusinessMapper;
 import com.xawl.travel.pojo.Business;
+import com.xawl.travel.utils.CreateId;
 import com.xawl.travel.utils.Result;
+import com.xawl.travel.utils.UploadImages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -17,6 +21,31 @@ import java.util.List;
 public class BusinessService {
     @Autowired
     BusinessMapper businessMapper;
+    /**
+     * 登录
+     * 根据selectByPramaryKey查询出密码
+     *商家是否存在  是
+     *                   对比密码  对着  200
+     *                             不对  405-密码错误
+     *               否  404-找不到对象
+     */
+    public Result login(String bid,String pass){
+        Result result=new Result();
+        Business business= businessMapper.selectByPrimaryKey(bid);
+        if(business==null){
+            result.setStatus(404);
+            result.setMsg("找不到该商家");
+            return result;
+        }
+        if(!pass.equals(business.getPass())){
+            result.setStatus(404);
+            result.setMsg("密码错误");
+            return result;
+        }
+       return result.success(200);
+
+    }
+
 
     /**
      * 查询全部
@@ -67,13 +96,47 @@ public class BusinessService {
         return businessMapper.selectByBid(bid);
     }
 
-    public Result insert(Business record){
+    /**
+     * 添加商家
+     * 分析：
+     * 1.bname和address不能为空
+     * 2.bid和is_use默认设置
+     * 3.图片的上传
+     * @param record
+     * @param request
+     * @param file
+     * @return
+     */
+    public Result insert(Business record, HttpServletRequest request,MultipartFile file){
+        Result result=new Result();
+        //1.bname和address不能为空
+        if(record.getBname().trim()==null&&record.getAddress().trim()==null){
+            result.setStatus(404);
+            result.setMsg("商家名称和地址均不能为空");
+            return result;
+        }
+        //2.bid和is_use默认设置
+        record.setBid(CreateId.gitId());
+        record.setIsUse(false);
+        //3.图片上传
+        UploadImages uploadImage = new UploadImages();
+        String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
+        String path2 = "img/business/Img";  //保存的文件夹
+        String imgPath = uploadImage.upLoadImage(request, file, path1, path2);
+        if (!imgPath.contains(".")) {
+            return Result.fail("未选择上传文件");
+        }
+        record.setImage(imgPath);
         try {
-            businessMapper.insert(record);
-            return Result.success(record);
+            int rows=businessMapper.insert(record);
+            if(rows==0){
+                return Result.fail(405,"添加失败");
+            }else{
+                return Result.success(record);
+            }
         }catch (Exception e){
             e.printStackTrace();
-            return Result.fail(405,"注册失败");
+            return Result.fail(405,"添加失败");
         }
     }
 
@@ -83,7 +146,7 @@ public class BusinessService {
             return Result.success(record);
         }catch(Exception e){
             e.printStackTrace();
-            return Result.fail(405,"注册失败");
+            return Result.fail(405,"添加失败");
         }
     }
 

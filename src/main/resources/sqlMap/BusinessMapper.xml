@@ -143,14 +143,14 @@
      SELECT  * from tb_business;
   </select>-->
   <select id="findAll" parameterType="java.lang.Integer" resultType="com.xawl.travel.pojo.Business">
-    SELECT  * from tb_business;
+    SELECT  * from tb_business where tb_business.is_use=FALSE
   </select>
   <!--通过Bid查询-->
   <select id="selectByBid" parameterType="java.lang.String" resultType="java.lang.Integer">
     select
     <include refid="Base_Column_List"/>
     from tb_business
-    where bid = #{bid,jdbcType=CHAR}
+    where bid = #{bid,jdbcType=CHAR} and tb_business.is_use=FALSE
   </select>
   <!--商家名称查询
   <select id="findByBname" parameterType="java.lang.String" resultType="com.xawl.travel.pojo.Business">
@@ -164,7 +164,7 @@
     select
     <include refid="Base_Column_List"/>
     from tb_business
-    where bname like  '%${bname}%'
+    where bname like  '%${bname}%' and tb_business.is_use=FALSE
   </select>
 
   <!--设置商家停用-->

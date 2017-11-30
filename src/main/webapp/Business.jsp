@@ -11,6 +11,11 @@
     <title>Title</title>
 </head>
 <body>
-　　<h2>哈哈呵呵和　</h2>
+　<form action="business/insert.action">
+      商家名称：<input type="text"/>
+      商家地址：<input type="text"/>
+      图片：<input type="file"/>
+    <input type="submit" value="提交">
+  </form>
 </body>
 </html>

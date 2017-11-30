@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -24,6 +23,16 @@ public class BusinessController {
     private BusinessService businessService;
 
     /**
+     * 登录
+     *
+     */
+    @ResponseBody
+    @RequestMapping("/login.action")
+    public Result login(String bid,String pass){
+        return businessService.login(bid,pass);
+    }
+
+    /**
      *    查找全部信息
      */
     @ResponseBody
@@ -31,7 +40,7 @@ public class BusinessController {
    /* public List<Business> findAll(HttpServletRequest request, HttpServletResponse response){
         return businessService.findAll();
     }*/
-    public Result findAll(Integer page,HttpServletRequest request, HttpServletResponse response){
+    public Result findAll(Integer page){
         return businessService.findAll(page);
     }
 
@@ -64,17 +73,15 @@ public class BusinessController {
     }
 
     /**
-     * 注册
+     * 添加
      * @param record
      * @return
      */
     @ResponseBody
     @RequestMapping("/insert.action")
-    public Result insert(Business record){
-        record.setBid(CreateId.gitId());
-        record.setIsUse(false);
-        Result result=  businessService.insert(record);
-        return result ;
+    public Result insert(Business record,MultipartFile file,HttpServletRequest request){
+        Result result=  businessService.insert(record,request,file);
+        return result;
     }
 
     @ResponseBody
