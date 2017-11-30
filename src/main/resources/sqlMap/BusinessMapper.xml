@@ -150,7 +150,7 @@
     select
     <include refid="Base_Column_List"/>
     from tb_business
-    where bid = #{bid,jdbcType=CHAR} and tb_business.is_use=FALSE
+    where bid = #{bid,jdbcType=CHAR}
   </select>
   <!--商家名称查询
   <select id="findByBname" parameterType="java.lang.String" resultType="com.xawl.travel.pojo.Business">

@@ -140,7 +140,7 @@
 
   <!--zb-->
   <select id="findAll" resultType="com.xawl.travel.pojo.User">
-    SELECT * FROM tb_user WHERE token=0
+    SELECT * FROM tb_user WHERE isdel=0
   </select>
   <!--lzp-->
   <!--通过Uid查询-->
@@ -148,21 +148,21 @@
     select
     <include refid="Base_Column_List"/>
     from tb_user
-    where uid = #{uid,jdbcType=CHAR} and token=FALSE
+    where uid = #{uid,jdbcType=CHAR}
   </select>
   <!--用户名称模糊查询-->
   <select id="findByAccount" parameterType="com.xawl.travel.pojo.User" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from tb_user
-    where account like '%${account}%' and token=FALSE
+    where account like '%${account}%'
   </select>
   <!--停用-->
   <update id="updateUserDisable" parameterType="com.xawl.travel.pojo.User">
-   UPDATE tb_user SET token=1 WHERE token=0 AND uid=#{uid,jdbcType=CHAR};
+   UPDATE tb_user SET isdel=1 WHERE isdel=0 AND uid=#{uid,jdbcType=CHAR};
   </update>
   <!--复用-->
   <update id="updateUserAble" parameterType="com.xawl.travel.pojo.User">
-    UPDATE tb_user SET token=0 WHERE token=1 AND uid=#{uid,jdbcType=CHAR};
+    UPDATE tb_user SET isdel=0 WHERE isdel=1 AND uid=#{uid,jdbcType=CHAR};
   </update>
 </mapper>

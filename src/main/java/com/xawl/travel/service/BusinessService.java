@@ -170,7 +170,7 @@ public class BusinessService {
             return Result.fail(405, "查询不到此商家");
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.fail(405, "修改失败");
+            return Result.fail(405, "停用失败");
         }
     }
         /**
@@ -185,7 +185,7 @@ public class BusinessService {
             return Result.fail(405,"查询不到此商家");
         }catch(Exception e){
             e.printStackTrace();
-            return Result.fail(405,"修改失败");
+            return Result.fail(405,"复用失败");
         }
     }
 }

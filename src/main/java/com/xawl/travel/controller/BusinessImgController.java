@@ -42,7 +42,6 @@ public class BusinessImgController {
     @RequestMapping("/uploadImg.action")
     public Result uploadImg(HttpServletRequest request, HttpServletResponse response,
                            BusinessImg businessImg,MultipartFile file) throws Exception {
-
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
