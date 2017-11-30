@@ -66,7 +66,10 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.xawl.travel.pojo.Ticket" >
     update tb_ticket
-    <set>
+    <set >
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=CHAR},
+      </if>
       <if test="price != null" >
         price = #{price,jdbcType=REAL},
       </if>
@@ -78,7 +81,6 @@
       </if>
     </set>
     where tid = #{tid,jdbcType=CHAR}
-    AND bid = #{bid,jdbcType=CHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xawl.travel.pojo.Ticket" >
     update tb_ticket
