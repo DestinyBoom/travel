@@ -97,8 +97,14 @@ public class BusinessKeepsakeController {
             ResourceUtils.upload(request, multipartFile, multipartFile.getOriginalFilename());
             ResourceUtils.deleteResource(businessKeepsake.getImgPath(), request);
             businessKeepsake.setImgPath(multipartFile.getOriginalFilename());
+        }else {
+            return Result.fail("失败");
         }
+
         try {
+            businessKeepsake.setKid(businessKeepsake.getKid());
+            businessKeepsake.setBid(businessKeepsake.getBid());
+            businessKeepsake.setInfo(businessKeepsake.getInfo());
             int num = businessKeepsakeService.updateKeepsakeByKid(businessKeepsake);
             if (num == 0) {
                 return Result.fail(300, "修改失败,插入数据库失败");
