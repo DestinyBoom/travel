@@ -1,7 +1,9 @@
 package com.xawl.travel.controller;
 
+import com.xawl.travel.pojo.Business;
 import com.xawl.travel.pojo.BusinessCarousel;
 import com.xawl.travel.service.BusinessCarouselService;
+import com.xawl.travel.utils.CreateId;
 import com.xawl.travel.utils.Result;
 import com.xawl.travel.utils.UploadImages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +82,8 @@ public class BusinessCarouselController {
             System.out.println(s);
             return businessCarouselService.findAll();
         }*/
+        record.setBcid(CreateId.gitId());
+        record.setBid(new Business().getBid());
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
@@ -108,12 +112,7 @@ public class BusinessCarouselController {
    @ResponseBody
     @RequestMapping("/updateByPrimaryKeySelective.action")
     public Result updateByPrimaryKeySelective(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record, String bcid,MultipartFile file){
-      /*  String msg;
-        if(record.getName()==null||record.getName().equals("")){
-            msg="修改失败，数据名不能为空";
-            request.setAttribute("msg",msg);
-           return businessCarouselService.findAll();
-        }*/
+
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
@@ -126,7 +125,9 @@ public class BusinessCarouselController {
             record2 = businessCarouselService.selectByPrimaryKey(bcid);
             File image= new File(path1+record2.getImgpath());
             System.out.println(image);
-            if(image.exists()){
+           if(image.exists()){
+               System.out.println(image);
+               System.out.println(1);
                 image.delete();
             }
             record.setImgpath(bigImg);
