@@ -1,6 +1,5 @@
 package com.xawl.travel.controller;
 
-import com.xawl.travel.pojo.Business;
 import com.xawl.travel.pojo.BusinessCarousel;
 import com.xawl.travel.service.BusinessCarouselService;
 import com.xawl.travel.utils.CreateId;
@@ -83,7 +82,7 @@ public class BusinessCarouselController {
             return businessCarouselService.findAll();
         }*/
         record.setBcid(CreateId.gitId());
-        record.setBid(new Business().getBid());
+        //record.setBid(new Business().getBid());
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径

@@ -34,5 +34,24 @@
     img_path：<input type="file" name="file"/>
     <input type="submit" value="提交">
 </form>
+<h2>添加</h2>
+<form action="businessCarousel/insertSelective.action"  method="post" enctype="multipart/form-data">
 
+    <input type="text" name="name"/>
+    img_path：<input type="file" name="file"/>
+    <input type="text" name="type"/>
+    <input type="text" name="bid"/>
+    <input type="text" name="status"/>
+    <input type="submit" value="提交">
+</form>
+<h2>添加</h2>
+<form action="businessCarousel/updateByPrimaryKeySelective.action"  method="post" enctype="multipart/form-data">
+
+    <input type="text" name="name"/>
+    img_path：<input type="file" name="file"/>
+    <input type="text" name="type"/>
+    <input type="text" name="bid"/>
+    <input type="text" name="status"/>
+    <input type="submit" value="提交">
+</form>
 </html>
