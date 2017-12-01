@@ -66,11 +66,11 @@ public class BusinessController {
         return businessService.selectByPrimaryKey(bid);
     }
 
-    @ResponseBody
+     /*@ResponseBody
     @RequestMapping("/selectByBid.action")
     public int selectByBid(String bid){
         return businessService.selectByBid(bid);
-    }
+    }*/
 
     /**
      * 添加

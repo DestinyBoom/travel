@@ -146,12 +146,12 @@
     SELECT  * from tb_business where tb_business.is_use=FALSE
   </select>
   <!--通过Bid查询-->
-  <select id="selectByBid" parameterType="java.lang.String" resultType="java.lang.Integer">
+<!--  <select id="selectByBid" parameterType="java.lang.String" resultType="java.math.BigInteger">
     select
     <include refid="Base_Column_List"/>
     from tb_business
     where bid = #{bid,jdbcType=CHAR}
-  </select>
+  </select>-->
   <!--商家名称查询
   <select id="findByBname" parameterType="java.lang.String" resultType="com.xawl.travel.pojo.Business">
     select

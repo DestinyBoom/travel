@@ -92,9 +92,9 @@ public class BusinessService {
         return businessMapper.selectByPrimaryKey(bid);
     }
 
-    public int selectByBid(String bid){
+    /*public int selectByBid(String bid){
         return businessMapper.selectByBid(bid);
-    }
+    }*/
 
     /**
      * 添加商家
@@ -163,7 +163,7 @@ public class BusinessService {
      */
     public Result updateBusinessDisable(String bid) {
         try {
-            if (businessMapper.selectByBid(bid)!= 0) {
+            if ( businessMapper.selectByPrimaryKey(bid).getBid()!=null) {
                 businessMapper.updateBusinessDisable(bid);
                 return Result.success(200);
             }
@@ -178,7 +178,7 @@ public class BusinessService {
          */
     public Result updateBusinessAble(String bid){
         try{
-            if(businessMapper.selectByBid(bid)!=0){
+            if(businessMapper.selectByPrimaryKey(bid).getBid()!=null){
                 businessMapper.updateBusinessAble(bid);
                 return Result.success(200);
             }

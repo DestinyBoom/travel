@@ -22,10 +22,10 @@ public interface UserMapper {
 
     List<User> findByAccount(User account);
     /* User findByAccount(User account);*/
-    int selectByUid(User uid);
+    /*int selectByUid(User uid);*/
 
-    int updateUserDisable(User uid);
+    int updateUserDisable(String uid);
 
-    int updateUserAble(User uid);
+    int updateUserAble(String uid);
 
 }

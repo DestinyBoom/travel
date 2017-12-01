@@ -57,7 +57,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/updateUserDisable.action")
-    public Result updateUserDisable(User uid){
+    public Result updateUserDisable(String uid){
         return userService.updateUserDisable(uid);
     }
 
@@ -68,7 +68,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/updateUserAble.action")
-    public Result updateUserAble(User uid){
+    public Result updateUserAble(String uid){
         return userService.updateUserAble(uid);
     }
 }

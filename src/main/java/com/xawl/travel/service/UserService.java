@@ -66,9 +66,9 @@ public class UserService {
     /**
      * 停用
      */
-    public Result updateUserDisable(User  uid){
+    public Result updateUserDisable(String  uid){
         try{
-            if(userMapper.selectByUid(uid)!=0){
+            if(userMapper.selectByPrimaryKey(uid).getUid()!=null){
                 userMapper.updateUserDisable(uid);
                 return Result.success();
             }
@@ -82,9 +82,9 @@ public class UserService {
     /**
      * 复用
      */
-    public Result updateUserAble(User  uid){
+    public Result updateUserAble(String  uid){
         try{
-            if(userMapper.selectByUid(uid)!=0){
+            if(userMapper.selectByPrimaryKey(uid).getUid()!=null){
                 userMapper.updateUserAble(uid);
                 return Result.success();
             }
