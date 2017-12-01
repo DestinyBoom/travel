@@ -169,6 +169,7 @@ public class BusinessService {
                 result.setMsg("地址不能为空");
                 return result;
             }
+            record.setIsUse(false);
             //3.图片上传
             UploadImages uploadImage = new UploadImages();
             String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
