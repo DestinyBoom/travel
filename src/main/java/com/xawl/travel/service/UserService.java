@@ -27,7 +27,7 @@ public class UserService {
         return userMapper.findAll();
     }*/
     public Result findAll(Integer page) {
-        PageHelper.startPage(page,10);
+        PageHelper.startPage(page,7);
         List<User> list=userMapper.findByAccount(null);
         PageInfo pageInfo=new PageInfo(list);
         Result result=new Result();

@@ -57,7 +57,7 @@ public class BusinessService {
     }*/
     public Result findAll(Integer page){
         //设置显示10条记录  pageNum是当前页面(页数),pageSize是每页显示的数据行数
-        PageHelper.startPage(page,5);
+        PageHelper.startPage(page,7);
         List<Business> list= businessMapper.findByBname(null);
         PageInfo pageInfo=new PageInfo(list);
         Result result=new Result();
