@@ -10,12 +10,29 @@
 <head>
     <title>Title</title>
 </head>
-<body>
-　<form action="business/insert.action">
-      商家名称：<input type="text"/>
-      商家地址：<input type="text"/>
-      图片：<input type="file"/>
+
+<h2>添加</h2>
+　<form action="business/insert.action" method="post"  enctype="multipart/form-data">
+    商家名称：<input type="text" name="bname"/>
+    商家地址：<input type="text" name="address"/>
+    图片：<input type="file" name="file"/>
     <input type="submit" value="提交">
-  </form>
-</body>
+</form>
+
+<h2>修改</h2>
+<form action="business/updateByPrimaryKey.action" method="post" enctype="multipart/form-data">
+    bid:<input type="text" name="bid"/>
+    商家名称：<input type="text" name="bname"/>
+    商家地址：<input type="text" name="address"/>
+    图片：<input type="file" name="file"/>
+    <input type="submit" value="提交">
+</form>
+
+<form action="businessImg/uploadImg.action"  enctype="multipart/form-data">
+    imgId：<input type="text" name="imgId"/>
+    bid：<input type="text" name="bid"/>
+    img_path：<input type="file" name="file"/>
+    <input type="submit" value="提交">
+</form>
+
 </html>

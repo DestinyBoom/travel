@@ -39,8 +39,10 @@ public class UploadImages {
         fileTypes.add("psd");  
         fileTypes.add("swf");  
         fileTypes.add("svg");  
-        // 保存文件  
-        if (!(image.getOriginalFilename() == null || "".equals(image  
+        // 保存文件
+        System.out.println(image+"*********************************");
+        System.out.println(image.getOriginalFilename()+"*********************************");
+        if (!(null==image.getOriginalFilename()  || "".equals(image
                 .getOriginalFilename()))) {  
             /* 
              * 下面调用的方法，主要是用来检测上传的文件是否属于允许上传的类型范围内，及根据传入的路径名 

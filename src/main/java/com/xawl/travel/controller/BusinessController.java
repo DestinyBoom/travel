@@ -24,45 +24,46 @@ public class BusinessController {
 
     /**
      * 登录
-     *
      */
     @ResponseBody
     @RequestMapping("/login.action")
-    public Result login(String bid,String pass){
-        return businessService.login(bid,pass);
+    public Result login(String bid, String pass) {
+        return businessService.login(bid, pass);
     }
 
     /**
-     *    查找全部信息
+     * 查找全部信息
      */
     @ResponseBody
     @RequestMapping("/findAll.action")
    /* public List<Business> findAll(HttpServletRequest request, HttpServletResponse response){
         return businessService.findAll();
     }*/
-    public Result findAll(Integer page){
+    public Result findAll(Integer page) {
         return businessService.findAll(page);
     }
 
     /**
-     *    通过名称模糊查询
-     *    @param bname
-     *    @return
+     * 通过名称模糊查询
+     *
+     * @param bname
+     * @return
      */
     @ResponseBody
     @RequestMapping("/findByBname.action")
-    public List<Business> findByBname(Business bname){
+    public List<Business> findByBname(Business bname) {
         return businessService.findByBname(bname);
     }
 
     /**
      * 通过主键查询
+     *
      * @param bid
      * @return
      */
     @ResponseBody
     @RequestMapping("/selectByPrimaryKey.action")
-    public Business selectByPrimaryKey(String bid){
+    public Business selectByPrimaryKey(String bid) {
         return businessService.selectByPrimaryKey(bid);
     }
 
@@ -74,60 +75,62 @@ public class BusinessController {
 
     /**
      * 添加
+     *
      * @param record
      * @return
      */
     @ResponseBody
     @RequestMapping("/insert.action")
-    public Result insert(Business record,MultipartFile file,HttpServletRequest request){
-        Result result=  businessService.insert(record,request,file);
-        return result;
+    public Result insert(Business record, MultipartFile file, HttpServletRequest request) {
+       // System.out.println(file + "&&&&&&&&&&&&&&&&&&&");
+        return businessService.insert(record, request, file);
     }
 
-    @ResponseBody
+/*    @ResponseBody
     @RequestMapping("/insertSelective.action")
     public Result insertSelective(Business record){
-        record.setBid(CreateId.gitId());
-        record.setIsUse(false);
         Result result=businessService.insertSelective(record);
         return result;
-    }
+    }*/
 
     /**
      * 通过主键修改
+     *
      * @param record
      * @return
      */
     @ResponseBody
-    @RequestMapping("/updateById.action")
-    public int updateByPrimaryKey(Business record){
-        return  businessService.updateByPrimaryKey(record);
+    @RequestMapping("/updateByPrimaryKey.action")
+    public Result updateByPrimaryKey(Business record, HttpServletRequest request,MultipartFile file) {
+        return businessService.updateByPrimaryKey(record,request,file);
     }
 
-    @ResponseBody
+   /* @ResponseBody
     @RequestMapping("/updateByIdSelective.action")
-    public int updateByPrimaryKeySelective(Business record){
+    public int updateByPrimaryKeySelective(Business record) {
         return businessService.updateByPrimaryKeySelective(record);
-    }
+    }*/
 
     /**
      * 商家停用
+     *
      * @return
      */
     @ResponseBody
     @RequestMapping("/updateBusinessDisable.action")
-    public Result updateBusinessDisable(String bid){
-       return businessService.updateBusinessDisable(bid);
+    public Result updateBusinessDisable(String bid) {
+        return businessService.updateBusinessDisable(bid);
     }
 
 
     /**
      * 商家可以使用
+     *
      * @return
      */
     @ResponseBody
     @RequestMapping("/updateBusinessAble.action")
-    public Result updateBusinessAble(String bid){
+    public Result updateBusinessAble(String bid) {
         return businessService.updateBusinessAble(bid);
     }
 }

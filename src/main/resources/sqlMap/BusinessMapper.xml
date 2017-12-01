@@ -133,7 +133,7 @@
     address = #{address,jdbcType=CHAR},
     level = #{level,jdbcType=CHAR},
     is_use = #{isUse,jdbcType=BIT},
-    image = #{image,jdbcType=VARCHAR}
+    image = #{image,jdbcType=VARCHAR},
     pass = #{pass,jdbcType=CHAR}
     where bid = #{bid,jdbcType=CHAR}
   </update>

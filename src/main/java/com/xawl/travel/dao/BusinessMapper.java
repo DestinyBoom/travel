@@ -20,7 +20,7 @@ public interface BusinessMapper {
 
     int deleteByPrimaryKey(String bid);
 
-    int insert(Business record);
+    //int insert(Business record);
 
     int insertSelective(Business record);
 

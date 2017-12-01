@@ -110,9 +110,14 @@ public class BusinessService {
     public Result insert(Business record, HttpServletRequest request,MultipartFile file){
         Result result=new Result();
         //1.bname和address不能为空
-        if(record.getBname().trim()==null&&record.getAddress().trim()==null){
+        if(record.getBname()==null||record.getBname().equals("")){
             result.setStatus(404);
-            result.setMsg("商家名称和地址均不能为空");
+            result.setMsg("商家名称不能为空");
+            return result;
+        }
+        if(record.getAddress()==null||record.getAddress().equals("")){
+            result.setStatus(404);
+            result.setMsg("地址不能为空");
             return result;
         }
         //2.bid和is_use默认设置
@@ -128,7 +133,7 @@ public class BusinessService {
         }
         record.setImage(imgPath);
         try {
-            int rows=businessMapper.insert(record);
+            int rows=businessMapper.insertSelective(record);
             if(rows==0){
                 return Result.fail(405,"添加失败");
             }else{
@@ -140,23 +145,58 @@ public class BusinessService {
         }
     }
 
-    public Result insertSelective(Business record){
-        try{
-            businessMapper.insertSelective(record);
-            return Result.success(record);
-        }catch(Exception e){
-            e.printStackTrace();
-            return Result.fail(405,"添加失败");
+    /**
+     *  修改
+     *  1.看是否有该ID  有  得到指定ID的信息
+     *                  无  提示信息
+      * @param record
+     * @param request
+     * @param file
+     * @return
+     */
+    public Result updateByPrimaryKey(Business record, HttpServletRequest request,MultipartFile file){
+        Result result=new Result();
+        //1.查看是否有该ID
+        if(businessMapper.selectByPrimaryKey(record.getBid())!=null){
+            //２.bname和address不能为空
+            if(record.getBname()==null||record.getBname().equals("")){
+                result.setStatus(404);
+                result.setMsg("商家名称不能为空");
+                return result;
+            }
+            if(record.getAddress()==null||record.getAddress().equals("")){
+                result.setStatus(404);
+                result.setMsg("地址不能为空");
+                return result;
+            }
+            //3.图片上传
+            UploadImages uploadImage = new UploadImages();
+            String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
+            String path2 = "img/business/Img";  //保存的文件夹
+            String imgPath = uploadImage.upLoadImage(request, file, path1, path2);
+            if (!imgPath.contains(".")) {
+                return Result.fail("未选择上传文件");
+            }
+            record.setImage(imgPath);
+           /* System.out.println(record+"+++++++++++++++++++++++++++++++++");*/
+            try {
+                int rows=businessMapper.updateByPrimaryKey(record);
+                if(rows==0){
+                    return Result.fail(405,"修改失败！！");
+                }else{
+                    return Result.success(record);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                return Result.fail(405,"修改失败");
+            }
         }
+        return Result.fail(405,"查询不到此商家");
     }
 
-    public int updateByPrimaryKey(Business record){
-        return  businessMapper.updateByPrimaryKey(record);
-    }
-
-    public int updateByPrimaryKeySelective(Business record){
+/*    public int updateByPrimaryKeySelective(Business record){
         return businessMapper.updateByPrimaryKeySelective(record);
-    }
+    }*/
 
     /**
      * 停用
