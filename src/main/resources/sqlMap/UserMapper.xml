@@ -140,7 +140,7 @@
 
   <!--lzp-->
   <select id="findAll" resultType="com.xawl.travel.pojo.User">
-    SELECT * FROM tb_user WHERE isdel=0
+    SELECT * FROM tb_user
   </select>
   <!--lzp-->
   <!--通过Uid查询-->
@@ -155,7 +155,7 @@
     select
     <include refid="Base_Column_List"/>
     from tb_user
-    where account like '%${account}%' and tb_user.isdel=0
+    where account like '%${account}%'
   </select>
   <!--停用-->
   <update id="updateUserDisable" parameterType="java.lang.String">
