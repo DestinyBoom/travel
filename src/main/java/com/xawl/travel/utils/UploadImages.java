@@ -52,7 +52,7 @@ public class UploadImages {
             savePath=file.getName();  
         }  
       
-        return "/"+path2+"/"+path3+"/"+savePath;  
+        return "//"+path2+"//"+path3+"//"+savePath;
     }  
   
     private File getFile(MultipartFile imgFile,String typeName,String brandName,List fileTypes) {   

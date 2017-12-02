@@ -2,6 +2,7 @@ package com.xawl.travel.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mysql.fabric.Server;
 import com.xawl.travel.dao.BusinessMapper;
 import com.xawl.travel.pojo.Business;
 import com.xawl.travel.utils.CreateId;
@@ -125,8 +126,10 @@ public class BusinessService {
         record.setIsUse(false);
         //3.图片上传
         UploadImages uploadImage = new UploadImages();
+
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-        String path2 = "img/business/Img";  //保存的文件夹
+         String path2 = "Business/Img";  //保存的文件夹
+        //String path2 = "/"+"img"+"/"+"business"+"/"+"Img";
         String imgPath = uploadImage.upLoadImage(request, file, path1, path2);
         if (!imgPath.contains(".")) {
             return Result.fail("未选择上传文件");
@@ -173,7 +176,7 @@ public class BusinessService {
             //3.图片上传
             UploadImages uploadImage = new UploadImages();
             String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-            String path2 = "img/business/Img";  //保存的文件夹
+            String path2 = "Business/Img";  //保存的文件夹
             String imgPath = uploadImage.upLoadImage(request, file, path1, path2);
             if (!imgPath.contains(".")) {
                 return Result.fail("未选择上传文件");
