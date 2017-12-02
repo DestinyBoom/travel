@@ -1,8 +1,9 @@
 <component name="ArtifactManager">
   <artifact type="war" name="travel:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
+    <output-path>D:/Program Files/tomcat7-8080-idea/webapps</output-path>
     <root id="archive" name="travel.war">
       <element id="artifact" artifact-name="travel:war exploded" />
+      <element id="dir-copy" path="D:/Program Files/tomcat7-8080-idea/webapps/ROOT" />
     </root>
   </artifact>
 </component>
