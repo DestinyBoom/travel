@@ -44,7 +44,7 @@ public class BusinessDeviceController {
 
     @ResponseBody
     @RequestMapping("/delDeviceByDid.action")
-    public Result delDeviceByBid(@RequestParam("did")String did){
+    public Result delDeviceByDid(@RequestParam("did")String did){
 
         int delNum = businessDeviceService.delDeviceByDid(did);
         if(delNum == 0){

@@ -42,7 +42,7 @@ public class BusinessKeepsakeController {
     public Result addKeepsake(HttpServletRequest request, HttpServletResponse response,
                               BusinessKeepsake businessKeepsake, MultipartFile multipartFile) throws Exception {
 
-        if (multipartFile != null) {
+        if (multipartFile == null) {
             try {
                 businessKeepsake.setImgPath(ResourceUtils.upload(request, multipartFile,
                         multipartFile.getOriginalFilename()));

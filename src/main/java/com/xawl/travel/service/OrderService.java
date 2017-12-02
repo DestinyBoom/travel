@@ -37,12 +37,16 @@ public class OrderService {
         }
     }
 
-    public Result selectOrderByOid(String oid) {
-        if (oid == null || oid == "") {
+    public Result selectOrderByOid(Order order) {
+
+        if (order.getBid() == null || order.getBid() == "") {
+            return Result.fail(300, "请给出对应商家ID");
+        }
+        if (order.getOid() == null || order.getOid() == "") {
             return Result.fail(300, "请给出对应订单号");
         }
         try {
-            Order order = orderMapper.selectByPrimaryKey(oid);
+            order = orderMapper.selectByPrimaryKey(order);
             return Result.success(order);
         } catch (Exception e) {
             e.printStackTrace();

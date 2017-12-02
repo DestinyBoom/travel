@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 
-
 /**
  * Created by Administrator on 2017/11/16.
  */
@@ -37,6 +36,41 @@ public class BusinessImgController {
         return result;
     }
 
+   /* *//**
+     * 异步上传处理
+     * @param request
+     * @param response
+     * @param file
+     * @return 返回上传文件相对路径及名称
+     * @throws IOException
+     *//*
+    @RequestMapping(value="/file/upload", produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String uploadFileHandler(HttpServletRequest request, @RequestParam("file") MultipartFile file){
+
+        //上传文件每日单独保存
+        String path = "/upload/"+DateUtil.getNowDate()+"/";
+
+        if (file.getSize() > 0) {
+            //获取绝对路径
+            String uploadPath = request.getSession().getServletContext().getRealPath(path);
+            try {
+                //创建目标文件
+                File targetFile = new File(uploadPath, file.getOriginalFilename());
+                if (!targetFile.exists()) {
+                    targetFile.mkdirs();
+                }
+
+                file.transferTo(targetFile);
+                JSON.toJSONString(path+file.getOriginalFilename());
+            } catch (Exception e) {
+
+            }
+        }
+        return null;
+    }*/
+
+
     /*添加商家图片*/
     @ResponseBody
     @RequestMapping("/uploadImg.action")
@@ -45,7 +79,8 @@ public class BusinessImgController {
         //图片上传
         UploadImages uploadImage = new UploadImages();
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-        String path2 = "img/businessImg";  //保存的文件夹
+        String path2 = "img\\businessImg";  //保存的文件夹
+        System.out.println(path1+path2);
         String imgPath = uploadImage.upLoadImage(request, file, path1, path2);
         if (!imgPath.contains(".")) {
             return Result.fail("未选择上传文件");

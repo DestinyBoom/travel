@@ -29,11 +29,20 @@
 </form>
 
 <form action="businessImg/uploadImg.action"  enctype="multipart/form-data">
-    imgId：<input type="text" name="imgId"/>
+    <%--imgId：<input type="text" name="imgId"/>--%>
     bid：<input type="text" name="bid"/>
     img_path：<input type="file" name="file"/>
     <input type="submit" value="提交">
 </form>
+
+<form action="/businessKeepsake/addKeepsake.action"  enctype="multipart/form-data">
+    <%--imgId：<input type="text" name="imgId"/>--%>
+    bid：<input type="text" name="bid"/>
+    info:<input type="text" name="info" >
+    img_path：<input type="file" name="file"/>
+    <input type="submit" value="提交">
+</form>
+
 <h2>添加</h2>
 <form action="businessCarousel/insertSelective.action"  method="post" enctype="multipart/form-data">
 

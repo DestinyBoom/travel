@@ -46,9 +46,9 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping("/selectOrderByOid.action")
-    public Result selectOrderByOid(@RequestParam("oid") String oid) throws Exception {
+    public Result selectOrderByOid(Order order) throws Exception {
 
-        Result result = orderService.selectOrderByOid(oid);
+        Result result = orderService.selectOrderByOid(order);
         return result;
     }
 

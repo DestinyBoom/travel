@@ -12,7 +12,7 @@ public interface OrderMapper {
 
     int insertSelective(Order record);
 
-    Order selectByPrimaryKey(String oid);
+    Order selectByPrimaryKey(Order order);
 
     int updateByPrimaryKeySelective(Order record);
 
