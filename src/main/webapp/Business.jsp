@@ -35,7 +35,7 @@
     <input type="submit" value="提交">
 </form>
 
-<form action="/businessKeepsake/addKeepsake.action"  enctype="multipart/form-data">
+<form action="/businessKeepsake/addKeepsake.action" method="post" enctype="multipart/form-data">
     <%--imgId：<input type="text" name="imgId"/>--%>
     bid：<input type="text" name="bid"/>
     info:<input type="text" name="info" >

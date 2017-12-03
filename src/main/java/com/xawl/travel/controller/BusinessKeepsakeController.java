@@ -3,11 +3,13 @@ package com.xawl.travel.controller;
 import com.xawl.travel.pojo.BusinessKeepsake;
 import com.xawl.travel.service.BusinessKeepsakeService;
 import com.xawl.travel.utils.CreateId;
+import com.xawl.travel.utils.ImgUploadUtils;
 import com.xawl.travel.utils.ResourceUtils;
 import com.xawl.travel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,23 +40,23 @@ public class BusinessKeepsakeController {
 
     /*添加纪念品相关*/
     @ResponseBody
-    @RequestMapping("/addKeepsake.action")
-    public Result addKeepsake(HttpServletRequest request, HttpServletResponse response,
-                              BusinessKeepsake businessKeepsake, MultipartFile multipartFile) throws Exception {
+    @RequestMapping(value="/addKeepsake.action",method= RequestMethod.POST)
+    public Result addKeepsake(HttpServletRequest request, BusinessKeepsake businessKeepsake,
+                              @RequestParam(value="multipartFile",required=false) MultipartFile multipartFile) throws Exception {
 
-        if (multipartFile == null) {
+        String basePath = "/travel/businessImg";  //保存的文件夹
+        if(multipartFile != null){
             try {
-                businessKeepsake.setImgPath(ResourceUtils.upload(request, multipartFile,
-                        multipartFile.getOriginalFilename()));
+                businessKeepsake.setImgPath(ImgUploadUtils.upload(request,multipartFile,basePath));
+                String kid = CreateId.gitId();
+                businessKeepsake.setKid(kid);
+                businessKeepsake.setBid(businessKeepsake.getBid());
+                businessKeepsake.setInfo(businessKeepsake.getInfo());
             } catch (Exception e) {
                 e.printStackTrace();
                 return Result.fail("上传添加失败");
             }
         }
-        String kid = CreateId.gitId();
-        businessKeepsake.setKid(kid);
-        businessKeepsake.setBid(businessKeepsake.getBid());
-        businessKeepsake.setInfo(businessKeepsake.getInfo());
         try {
             int num = businessKeepsakeService.addKeepsakeByBid(businessKeepsake);
             if (num == 0) {
@@ -72,7 +74,7 @@ public class BusinessKeepsakeController {
     /*单个或批量删除纪念品*/
     @ResponseBody
     @RequestMapping("/deleteKeepsake.action")
-    public Result deleteKeepsake(HttpServletRequest request, HttpServletResponse response, @RequestParam("ids") String ids)throws Exception
+    public Result deleteKeepsake(HttpServletRequest request, @RequestParam("ids") String ids)throws Exception
     {
         //批量删除
         if (ids == null || ids.equals("")){
@@ -92,15 +94,12 @@ public class BusinessKeepsakeController {
     public Result updateKeepsake(HttpServletRequest request, HttpServletResponse response,
                               BusinessKeepsake businessKeepsake, MultipartFile multipartFile) throws Exception {
 
-        if (!multipartFile.getOriginalFilename().isEmpty()) {
+        if(multipartFile != null){
+            String basePath = "/travel/businessImg";  //保存的文件夹
             businessKeepsake = businessKeepsakeService.selectKeepsakeByKid(businessKeepsake.getKid());
-            ResourceUtils.upload(request, multipartFile, multipartFile.getOriginalFilename());
-            ResourceUtils.deleteResource(businessKeepsake.getImgPath(), request);
-            businessKeepsake.setImgPath(multipartFile.getOriginalFilename());
-        }else {
-            return Result.fail("失败");
+            ImgUploadUtils.deleteFile(businessKeepsake.getImgPath());
+            businessKeepsake.setImgPath(ImgUploadUtils.upload(request,multipartFile,basePath));
         }
-
         try {
             businessKeepsake.setKid(businessKeepsake.getKid());
             businessKeepsake.setBid(businessKeepsake.getBid());

@@ -87,5 +87,13 @@ import java.util.Random;
             //File.separator
             return imgPath + "/" + fileName;
         }
+
+        //删除文件
+        public static void deleteFile(String filePath) {
+            File file = new File(PATH_ROOT + filePath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
     }
 
