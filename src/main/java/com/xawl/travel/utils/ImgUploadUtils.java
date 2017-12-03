@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * Created by wt on 2017/12/3.
  */
-    public class ImgUploadUtil {
+    public class ImgUploadUtils {
 
 
         private static String PATH_ROOT;

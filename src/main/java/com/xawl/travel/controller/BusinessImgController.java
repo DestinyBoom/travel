@@ -3,9 +3,8 @@ package com.xawl.travel.controller;
 import com.xawl.travel.pojo.BusinessImg;
 import com.xawl.travel.service.BusinessImgService;
 import com.xawl.travel.utils.CreateId;
-import com.xawl.travel.utils.ImgUploadUtil;
+import com.xawl.travel.utils.ImgUploadUtils;
 import com.xawl.travel.utils.Result;
-import com.xawl.travel.utils.UploadImages;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 
 /**
@@ -48,7 +43,7 @@ public class BusinessImgController {
             //图片上传
             String basePath = "/img/businessImg";  //保存的文件夹
             if(!file.isEmpty()){
-                String imgPath = ImgUploadUtil.upload(request,file,basePath);
+                String imgPath = ImgUploadUtils.upload(request,file,basePath);
                 String imgId = CreateId.gitId();
                 businessImg.setImgid(imgId);
                 businessImg.setBid(businessImg.getBid());
