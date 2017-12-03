@@ -29,7 +29,7 @@ public class BusinessKeepsakeController {
 
     @ResponseBody
     @RequestMapping("/findKeepsakeByBid.action")
-    public Result findKeepsakeByBid(String bid, @RequestParam(value = "pn", defaultValue = "1") Integer pn) throws Exception {
+    public Result findKeepsakeByBid(String bid, @RequestParam(value = "pn") Integer pn) throws Exception {
 
         Result result = businessKeepsakeService.findKeepsakeByBid(bid, pn);
         return result;

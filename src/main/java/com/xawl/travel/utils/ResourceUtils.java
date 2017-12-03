@@ -18,7 +18,7 @@ import java.util.UUID;
 
 public class ResourceUtils {
 
-    public static String path = "img/businessKeepsakeImg";  //保存的文件夹
+    public static String path = "img//businessKeepsakeImg";  //保存的文件夹
 
     public static String  upload(HttpServletRequest request,
                                  MultipartFile multipartFile, String name) throws IOException {

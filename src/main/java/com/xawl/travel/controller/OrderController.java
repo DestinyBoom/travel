@@ -31,7 +31,7 @@ public class OrderController {
      */
     @ResponseBody
     @RequestMapping("/selectOrderByBid.action")
-    public Result selectOrderByBid(@RequestParam("bid") String bid, @RequestParam(value = "pn", defaultValue = "1") Integer pn) throws Exception {
+    public Result selectOrderByBid(@RequestParam("bid") String bid, @RequestParam(value = "pn") Integer pn) throws Exception {
 
         Result result = orderService.selectOrderByBid(bid, pn);
         return result;
