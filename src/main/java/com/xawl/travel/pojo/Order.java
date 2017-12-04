@@ -15,6 +15,9 @@ public class Order {
 
     private String bid;
 
+    private Float totalprice;
+
+
     public String getOid() {
         return oid;
     }
@@ -43,9 +46,7 @@ public class Order {
         return payTime;
     }
 
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
-    }
+    public void setPayTime(Date payTime) {this.payTime = payTime;}
 
     public String getUid() {
         return uid;
@@ -62,4 +63,8 @@ public class Order {
     public void setBid(String bid) {
         this.bid = bid == null ? null : bid.trim();
     }
+
+    public Float getTotalprice() {return totalprice;}
+
+    public void setTotalprice(Float totalprice) {this.totalprice = totalprice;}
 }

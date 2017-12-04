@@ -9,7 +9,6 @@ import com.xawl.travel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -65,6 +64,15 @@ public class OrderService {
         } catch (Exception e) {
             e.printStackTrace();
             return Result.fail("查询失败");
+        }
+    }
+
+    public Result updateOrderStatus(Order order) {
+        int orderNum = orderMapper.updateByPrimaryKeySelective(order);
+        if (orderNum == 0) {
+            return Result.fail("修改失败,数据有误");
+        } else {
+            return Result.success("修改成功");
         }
     }
 }

@@ -8,9 +8,10 @@
     <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
     <result column="uid" property="uid" jdbcType="CHAR" />
     <result column="bid" property="bid" jdbcType="CHAR" />
+    <result column="totalprice" property="totalprice" jdbcType="FLOAT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    oid, status, create_time, pay_time, uid, bid
+    oid, status, create_time, pay_time, uid, bid, totalprice
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -24,9 +25,9 @@
   </delete>
   <insert id="insert" parameterType="com.xawl.travel.pojo.Order" >
     insert into tb_order (oid, status, create_time, 
-      pay_time, uid, bid)
+      pay_time, uid, bid,totalprice)
     values (#{oid,jdbcType=CHAR}, #{status,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{payTime,jdbcType=TIMESTAMP}, #{uid,jdbcType=CHAR}, #{bid,jdbcType=CHAR})
+      #{payTime,jdbcType=TIMESTAMP}, #{uid,jdbcType=CHAR}, #{bid,jdbcType=CHAR}, #{totalprice,jdbcType=FLOAT )
   </insert>
   <insert id="insertSelective" parameterType="com.xawl.travel.pojo.Order" >
     insert into tb_order
@@ -49,6 +50,9 @@
       <if test="bid != null" >
         bid,
       </if>
+      <if test="totalprice != null" >
+        totalprice,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="oid != null" >
@@ -68,6 +72,9 @@
       </if>
       <if test="bid != null" >
         #{bid,jdbcType=CHAR},
+      </if>
+      <if test="totalprice != null" >
+        #{totalprice,jdbcType=FLOAT},
       </if>
     </trim>
   </insert>
@@ -89,6 +96,9 @@
       <if test="bid != null" >
         bid = #{bid,jdbcType=CHAR},
       </if>
+      <if test="totalprice != null" >
+        totalprice = #{totalprice,jdbcType=FLOAT},
+      </if>
     </set>
     where oid = #{oid,jdbcType=CHAR}
   </update>
@@ -98,7 +108,8 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       pay_time = #{payTime,jdbcType=TIMESTAMP},
       uid = #{uid,jdbcType=CHAR},
-      bid = #{bid,jdbcType=CHAR}
+      bid = #{bid,jdbcType=CHAR},
+      totalprice = #{totalprice,jdbcType=FLOAT},
     where oid = #{oid,jdbcType=CHAR}
   </update>
 

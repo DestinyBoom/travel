@@ -42,20 +42,17 @@ public class BusinessKeepsakeController {
     @ResponseBody
     @RequestMapping(value="/addKeepsake.action",method= RequestMethod.POST)
     public Result addKeepsake(HttpServletRequest request, BusinessKeepsake businessKeepsake,
-                              @RequestParam(value="multipartFile",required=false) MultipartFile multipartFile) throws Exception {
+                              @RequestParam(value="file",required=false) MultipartFile multipartFile) throws Exception {
 
         String basePath = "/travel/businessImg";  //保存的文件夹
-        if(multipartFile != null){
-            try {
-                businessKeepsake.setImgPath(ImgUploadUtils.upload(request,multipartFile,basePath));
-                String kid = CreateId.gitId();
-                businessKeepsake.setKid(kid);
-                businessKeepsake.setBid(businessKeepsake.getBid());
-                businessKeepsake.setInfo(businessKeepsake.getInfo());
-            } catch (Exception e) {
-                e.printStackTrace();
-                return Result.fail("上传添加失败");
-            }
+        if(!multipartFile.isEmpty()){
+            String kid = CreateId.gitId();
+            businessKeepsake.setKid(kid);
+            businessKeepsake.setBid(businessKeepsake.getBid());
+            businessKeepsake.setInfo(businessKeepsake.getInfo());
+            businessKeepsake.setImgPath(ImgUploadUtils.upload(request,multipartFile,basePath));
+        }else{
+            return Result.fail("文件不存在");
         }
         try {
             int num = businessKeepsakeService.addKeepsakeByBid(businessKeepsake);
@@ -91,14 +88,15 @@ public class BusinessKeepsakeController {
 
     @ResponseBody
     @RequestMapping("/updateKeepsake.action")
-    public Result updateKeepsake(HttpServletRequest request, HttpServletResponse response,
-                              BusinessKeepsake businessKeepsake, MultipartFile multipartFile) throws Exception {
-
+    public Result updateKeepsake(HttpServletRequest request, BusinessKeepsake businessKeepsake,
+                                 MultipartFile multipartFile) throws Exception {
         if(multipartFile != null){
             String basePath = "/travel/businessImg";  //保存的文件夹
             businessKeepsake = businessKeepsakeService.selectKeepsakeByKid(businessKeepsake.getKid());
             ImgUploadUtils.deleteFile(businessKeepsake.getImgPath());
             businessKeepsake.setImgPath(ImgUploadUtils.upload(request,multipartFile,basePath));
+        }else{
+            return Result.fail("修改失败，文件不存在");
         }
         try {
             businessKeepsake.setKid(businessKeepsake.getKid());

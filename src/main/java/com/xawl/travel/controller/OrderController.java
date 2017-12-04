@@ -72,4 +72,49 @@ public class OrderController {
         return result;
     }
 
+    /**
+     * 修改订单状态
+     * @param order  oid
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("/updateOrderStatus.action")
+    public Result updateOrderStatus(short status,Order order) throws Exception{
+
+        if(status == 0){
+            order.setStatus((short)0);
+            order.setOid(order.getOid());
+            order.setBid(order.getBid());
+            order.setCreateTime(order.getCreateTime());
+            order.setPayTime(order.getPayTime());
+            order.setUid(order.getUid());
+            order.setTotalprice(order.getTotalprice());
+            Result result = orderService.updateOrderStatus(order);
+            return result;
+        }else if(status == 1){
+            order.setStatus((short)1);
+            order.setOid(order.getOid());
+            order.setBid(order.getBid());
+            order.setCreateTime(order.getCreateTime());
+            order.setPayTime(order.getPayTime());
+            order.setUid(order.getUid());
+            order.setTotalprice(order.getTotalprice());
+            Result result = orderService.updateOrderStatus(order);
+            return result;
+        }else if(status == 2) {
+            order.setStatus((short) 2);
+            order.setOid(order.getOid());
+            order.setBid(order.getBid());
+            order.setCreateTime(order.getCreateTime());
+            order.setPayTime(order.getPayTime());
+            order.setUid(order.getUid());
+            order.setTotalprice(order.getTotalprice());
+            Result result = orderService.updateOrderStatus(order);
+            return result;
+        }else{
+            return Result.fail("订单有误,修改失败");
+        }
+    }
+
 }

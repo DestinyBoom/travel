@@ -73,7 +73,6 @@ public class BusinessKeepsakeService {
             } catch (Exception e) {
                 return 0;
             }
-
         }
         return businessKeepsakeMapper.deleteKeepsakeByKid(kids);
     }

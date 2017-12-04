@@ -28,7 +28,7 @@
     <input type="submit" value="提交">
 </form>
 
-<form action="businessImg/uploadBusinessImg.action"   method="post" enctype="multipart/form-data">
+<form action="businessImg/uploadBusinessImg.action"  method="post" enctype="multipart/form-data">
     <%--imgId：<input type="text" name="imgId"/>--%>
     bid：<input type="text" name="bid"/>
     img_path：<input type="file" name="file"/>
@@ -37,6 +37,15 @@
 
 <form action="/businessKeepsake/addKeepsake.action" method="post" enctype="multipart/form-data">
     <%--imgId：<input type="text" name="imgId"/>--%>
+    bid：<input type="text" name="bid"/>
+    info:<input type="text" name="info" >
+    img_path：<input type="file" name="file"/>
+    <input type="submit" value="提交">
+</form>
+
+<form action="/businessKeepsake/updateKeepsake.action" method="post" enctype="multipart/form-data">
+    <%--imgId：<input type="text" name="imgId"/>--%>
+    kid: <input type="text" name="kid"/>
     bid：<input type="text" name="bid"/>
     info:<input type="text" name="info" >
     img_path：<input type="file" name="file"/>
