@@ -123,6 +123,7 @@ public class BusinessService {
         }
         //2.bid和is_use默认设置
         record.setBid(CreateId.gitId());
+        record.setPass("123456");
         record.setIsUse(false);
         //3.图片上传
         UploadImages uploadImage = new UploadImages();
