@@ -15,6 +15,8 @@ public interface BusinessCarouselMapper {
     int insertSelective(BusinessCarousel record);
 
     BusinessCarousel selectByPrimaryKey(String bcid);
+    //通过名称模糊查询
+    List<BusinessCarousel> findByName(BusinessCarousel name);
 
     int updateByPrimaryKeySelective(BusinessCarousel record);
 

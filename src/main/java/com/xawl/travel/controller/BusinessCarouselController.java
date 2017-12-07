@@ -24,7 +24,9 @@ import java.util.List;
 public class BusinessCarouselController {
     @Autowired
     public BusinessCarouselService businessCarouselService;
-
+/**
+ *查询全部
+ */
     @ResponseBody
     @RequestMapping("/findAll.action")
     public List<BusinessCarousel> findAll(HttpServletRequest request, HttpServletResponse response) {
@@ -32,13 +34,38 @@ public class BusinessCarouselController {
         return businessCarouselService.findAll();
     }
 
+    /**
+     *通过bcid查询
+     * @param request
+     * @param response
+     * @param bcid
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/selectByPrimaryKey.action")
     public BusinessCarousel selectByPrimaryKey(HttpServletRequest request, HttpServletResponse response, String bcid) {
-
+       //System .out.println(name);
         return businessCarouselService.selectByPrimaryKey(bcid);
     }
+    /**
+     * 通过名称模糊查询
+     *
+     * @param name
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/findByName.action")
+    public List<BusinessCarousel> findByName(BusinessCarousel name) {
+        return businessCarouselService.findByName(name);
+    }
 
+    /**
+     * 删除
+     * @param request
+     * @param response
+     * @param bcid
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/deleteByPrimaryKey.action")
     public Result deleteByPrimaryKey(HttpServletRequest request, HttpServletResponse response, String bcid) {
@@ -64,12 +91,21 @@ public class BusinessCarouselController {
         return Result.fail(500, "系统错误");
     }
 
+
     @ResponseBody
     @RequestMapping("/insert.action")
     public int insert(HttpServletRequest request, HttpServletResponse response, BusinessCarousel record) {
         return businessCarouselService.insert(record);
     }
 
+    /**
+     * 插入
+     * @param request
+     * @param response
+     * @param record
+     * @param file
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/insertSelective.action")
     public Result insertSelective(HttpServletRequest request, HttpServletResponse response, BusinessCarousel record, MultipartFile file) {
@@ -108,6 +144,15 @@ public class BusinessCarouselController {
         return businessCarouselService.findAll();*/
     }
 
+    /**
+     * 修改
+     * @param request
+     * @param response
+     * @param record
+     * @param bcid
+     * @param file
+     * @return
+     */
    @ResponseBody
     @RequestMapping("/updateByPrimaryKeySelective.action")
     public Result updateByPrimaryKeySelective(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record, String bcid,MultipartFile file){
@@ -123,10 +168,10 @@ public class BusinessCarouselController {
             BusinessCarousel record2 = new BusinessCarousel();
             record2 = businessCarouselService.selectByPrimaryKey(bcid);
             File image= new File(path1+record2.getImgpath());
-            System.out.println(image);
+           // System.out.println(image);
            if(image.exists()){
-               System.out.println(image);
-               System.out.println(1);
+             //  System.out.println(image);
+              // System.out.println(1);
                 image.delete();
             }
             record.setImgpath(bigImg);

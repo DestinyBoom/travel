@@ -25,6 +25,10 @@ public class BusinessCarouselService {
 
     public BusinessCarousel selectByPrimaryKey(String bcid){return businessCarouselMapper.selectByPrimaryKey(bcid);}
 
+    public List<BusinessCarousel> findByName(BusinessCarousel name) {
+        return businessCarouselMapper.findByName(name);
+    }
+
     public int deleteByPrimaryKey(String bcid){return businessCarouselMapper.deleteByPrimaryKey(bcid);}
 
     public int insert(BusinessCarousel record){return businessCarouselMapper.insert(record);}
