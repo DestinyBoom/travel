@@ -55,7 +55,7 @@ public class BusinessCarouselController {
      */
     @ResponseBody
     @RequestMapping("/findByName.action")
-    public List<BusinessCarousel> findByName(BusinessCarousel name) {
+    public List<BusinessCarousel> findByName(HttpServletRequest request, HttpServletResponse response,BusinessCarousel name) {
         return businessCarouselService.findByName(name);
     }
 
