@@ -44,7 +44,7 @@ public class BusinessKeepsakeController {
     public Result addKeepsake(HttpServletRequest request, BusinessKeepsake businessKeepsake,
                               @RequestParam(value="file",required=false) MultipartFile multipartFile) throws Exception {
 
-        String basePath = "/travel/businessImg";  //保存的文件夹
+        String basePath = "/businessImg";  //保存的文件夹
         if(!multipartFile.isEmpty()){
             String kid = CreateId.gitId();
             businessKeepsake.setKid(kid);
@@ -91,7 +91,7 @@ public class BusinessKeepsakeController {
     public Result updateKeepsake(HttpServletRequest request, BusinessKeepsake businessKeepsake,
                                  MultipartFile multipartFile) throws Exception {
         if(multipartFile != null){
-            String basePath = "/travel/businessImg";  //保存的文件夹
+            String basePath = "/businessImg";  //保存的文件夹
             businessKeepsake = businessKeepsakeService.selectKeepsakeByKid(businessKeepsake.getKid());
             ImgUploadUtils.deleteFile(businessKeepsake.getImgPath());
             businessKeepsake.setImgPath(ImgUploadUtils.upload(request,multipartFile,basePath));

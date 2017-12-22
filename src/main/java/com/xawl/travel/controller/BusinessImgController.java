@@ -41,7 +41,7 @@ public class BusinessImgController {
     public Result uploadBusinessImg(HttpServletRequest request, BusinessImg businessImg ,
                                     @RequestParam(value="file",required=false) MultipartFile file)throws Exception{
             //图片上传
-            String basePath = "/travel/businessImg";  //保存的文件夹
+            String basePath = "/businessImg";  //保存的文件夹
             if(!file.isEmpty()){
                 String imgPath = ImgUploadUtils.upload(request,file,basePath);
                 String imgId = CreateId.gitId();
