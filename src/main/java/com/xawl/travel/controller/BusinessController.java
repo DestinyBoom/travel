@@ -6,6 +6,7 @@ import com.xawl.travel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,7 +40,7 @@ public class BusinessController {
    /* public List<Business> findAll(HttpServletRequest request, HttpServletResponse response){
         return businessService.findAll();
     }*/
-    public Result findAll(Integer page) {
+    public Result findAll(@RequestParam(value="page", defaultValue="1")Integer page) {
         return businessService.findAll(page);
     }
 
@@ -51,8 +52,8 @@ public class BusinessController {
      */
     @ResponseBody
     @RequestMapping("/findByBname.action")
-    public List<Business> findByBname(Business bname) {
-        return businessService.findByBname(bname);
+    public Result findByBname(@RequestParam(value="page", defaultValue="1")Integer page, Business bname) {
+        return businessService.findByBname(page,bname);
     }
 
     /**
@@ -81,7 +82,7 @@ public class BusinessController {
      */
     @ResponseBody
     @RequestMapping("/insert.action")
-    public Result insert(Business record, MultipartFile file, HttpServletRequest request) {
+    public Result insert(Business record, MultipartFile file, HttpServletRequest request)throws Exception{
        // System.out.println(file + "&&&&&&&&&&&&&&&&&&&");
         return businessService.insert(record, request, file);
     }
@@ -101,7 +102,7 @@ public class BusinessController {
      */
     @ResponseBody
     @RequestMapping("/updateByPrimaryKey.action")
-    public Result updateByPrimaryKey(Business record, HttpServletRequest request,MultipartFile file) {
+    public Result updateByPrimaryKey(Business record, HttpServletRequest request,MultipartFile file) throws Exception{
         return businessService.updateByPrimaryKey(record,request,file);
     }
 

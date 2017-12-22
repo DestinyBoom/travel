@@ -2,15 +2,17 @@ package com.xawl.travel.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mysql.fabric.Server;
 import com.xawl.travel.dao.BusinessMapper;
 import com.xawl.travel.pojo.Business;
 import com.xawl.travel.utils.CreateId;
+import com.xawl.travel.utils.ImgUploadUtils;
 import com.xawl.travel.utils.Result;
 import com.xawl.travel.utils.UploadImages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -78,7 +80,7 @@ public class BusinessService {
      * @param bname
      * @return
      */
-   public List<Business> findByBname(Business bname) {
+   public Result findByBname(Integer page, Business bname) {
        /* try{
             businessMapper.findByBname(bname);
             return Result.success(bname);
@@ -86,7 +88,19 @@ public class BusinessService {
             e.printStackTrace();
             return Result.fail(405,"没有相关的查询记录");
        }*/
-       return businessMapper.findByBname(bname);
+       PageHelper.startPage(page,7);
+       List<Business> list=businessMapper.findByBname(bname);
+       PageInfo pageInfo=new PageInfo(list);
+       Result result=new Result();
+       if(page<=pageInfo.getLastPage()){
+           result.setStatus(200);
+           result.setMsg("查询成功");
+           result.setData(pageInfo);
+       }else{
+           result.setStatus(405);
+           result.setMsg("没有找到记录数");
+       }
+       return result;
     }
 
     public Business selectByPrimaryKey(String bid){
@@ -108,7 +122,7 @@ public class BusinessService {
      * @param file
      * @return
      */
-    public Result insert(Business record, HttpServletRequest request,MultipartFile file){
+    public Result insert(Business record, HttpServletRequest request,MultipartFile file)throws Exception{
         Result result=new Result();
         //1.bname和address不能为空
         if(record.getBname()==null||record.getBname().equals("")){
@@ -126,16 +140,23 @@ public class BusinessService {
         record.setPass("123456");
         record.setIsUse(false);
         //3.图片上传
-        UploadImages uploadImage = new UploadImages();
+        String basePath = "/business/Img";  //保存的文件夹
+        if(!file.isEmpty()){
+            String imgPath = ImgUploadUtils.upload(request,file,basePath);
+            record.setImage(imgPath);
+        }else{
+            return Result.fail("文件不存在");
+        }
+        /*UploadImages uploadImage = new UploadImages();
 
         String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-         String path2 = "Business/Img";  //保存的文件夹
-        //String path2 = "/"+"img"+"/"+"business"+"/"+"Img";
+         String path2 = "/Business/Img";  //保存的文件夹
         String imgPath = uploadImage.upLoadImage(request, file, path1, path2);
         if (!imgPath.contains(".")) {
             return Result.fail("未选择上传文件");
         }
-        record.setImage(imgPath);
+        record.setImage(imgPath);*/
+
         try {
             int rows=businessMapper.insertSelective(record);
             if(rows==0){
@@ -158,7 +179,7 @@ public class BusinessService {
      * @param file
      * @return
      */
-    public Result updateByPrimaryKey(Business record, HttpServletRequest request,MultipartFile file){
+    public Result updateByPrimaryKey(Business record, HttpServletRequest request,@RequestParam(value="file",required=false)MultipartFile file)throws Exception{
         Result result=new Result();
         //1.查看是否有该ID
         if(businessMapper.selectByPrimaryKey(record.getBid())!=null){
@@ -173,19 +194,30 @@ public class BusinessService {
                 result.setMsg("地址不能为空");
                 return result;
             }
+            record.setPass("123456");
             record.setIsUse(false);
             //3.图片上传
-            UploadImages uploadImage = new UploadImages();
-            String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-            String path2 = "Business/Img";  //保存的文件夹
-            String imgPath = uploadImage.upLoadImage(request, file, path1, path2);
-            if (!imgPath.contains(".")) {
-                return Result.fail("未选择上传文件");
+            String basePath = "/business/Img";  //保存的文件夹
+            if(!file.isEmpty()){
+                String imgPath = ImgUploadUtils.upload(request,file,basePath);
+                record.setImage(imgPath);
+            }else{
+                return Result.fail("文件不存在");
             }
-            record.setImage(imgPath);
+            /*UploadImages uploadImage = new UploadImages();
+            String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
+            String path2 = "/Business/Img";  //保存的文件夹
+            String imgPath = uploadImage.upLoadImage(request, file, path1, path2);*/
+            /*if (!imgPath.contains(".")) {
+                return Result.fail("未选择上传文件");
+            }*/
+           /* if(imgPath!=null){
+                record.setImage(imgPath);
+            }*/
+
            /* System.out.println(record+"+++++++++++++++++++++++++++++++++");*/
             try {
-                int rows=businessMapper.updateByPrimaryKey(record);
+                int rows=businessMapper.updateByPrimaryKeySelective(record);
                 if(rows==0){
                     return Result.fail(405,"修改失败！！");
                 }else{

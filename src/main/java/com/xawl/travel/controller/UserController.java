@@ -5,6 +5,7 @@ import com.xawl.travel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +24,6 @@ public class UserController {
 
     /**
      * 查询全部
-     * @param request
-     * @param response
      * @return
      */
     @ResponseBody
@@ -32,7 +31,7 @@ public class UserController {
    /* public List<User> findAll(HttpServletRequest request, HttpServletResponse response){
         return userService.findAll();
     }*/
-    public Result findAll(Integer page,HttpServletRequest request, HttpServletResponse response){
+    public Result findAll(@RequestParam(value="page",defaultValue="1")Integer page){
         return userService.findAll(page);
     }
 
@@ -41,8 +40,8 @@ public class UserController {
      */
      @ResponseBody
      @RequestMapping("/findByAccount.action")
-     public List<User> findByAccount(User account){
-         return userService.findByAccount(account);
+     public Result findByAccount(@RequestParam(value="page",defaultValue="1")Integer page,User account){
+         return userService.findByAccount(page,account);
      }
     /*@ResponseBody
     @RequestMapping("/findByAccount.action")

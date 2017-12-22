@@ -47,8 +47,20 @@ public class UserService {
      * @param account
      * @return
      */
-    public List<User> findByAccount(User account){
-        return userMapper.findByAccount(account);
+    public Result findByAccount(Integer page,User account){
+        PageHelper.startPage(page,7);
+        List<User> list=userMapper.findByAccount(account);
+        PageInfo pageInfo=new PageInfo(list);
+        Result result=new Result();
+        if(page<=pageInfo.getLastPage()){
+            result.setStatus(200);
+            result.setMsg("查询成功");
+            result.setData(pageInfo);
+        }else{
+            result.setStatus(403);
+            result.setMsg("没有找到记录数");
+        }
+        return result ;
     }
     /*public Result findByAccount(User account){
         try{

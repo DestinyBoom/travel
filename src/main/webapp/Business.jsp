@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 
-<h2>添加</h2>
+<h2>商家添加</h2>
 　<form action="business/insert.action" method="post"  enctype="multipart/form-data">
     商家名称：<input type="text" name="bname"/>
     商家地址：<input type="text" name="address"/>
@@ -19,7 +19,7 @@
     <input type="submit" value="提交">
 </form>
 
-<h2>修改</h2>
+<h2>商家修改</h2>
 <form action="business/updateByPrimaryKey.action" method="post" enctype="multipart/form-data">
     bid:<input type="text" name="bid"/>
     商家名称：<input type="text" name="bname"/>
