@@ -3,6 +3,7 @@ package com.xawl.travel.controller;
 import com.xawl.travel.pojo.BusinessCarousel;
 import com.xawl.travel.service.BusinessCarouselService;
 import com.xawl.travel.utils.CreateId;
+import com.xawl.travel.utils.ImgUploadUtils;
 import com.xawl.travel.utils.Result;
 import com.xawl.travel.utils.UploadImages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,29 +109,22 @@ public class BusinessCarouselController {
      */
     @ResponseBody
     @RequestMapping("/insertSelective.action")
-    public Result insertSelective(HttpServletRequest request, HttpServletResponse response, BusinessCarousel record, MultipartFile file) {
-           /* String msg;
-       if(record.getName() == null || record.getName().equals("")) {
-            msg = "添加失败，数据名不能为空";
-            request.setAttribute("msg", msg);
-            Object s = request.getAttribute("msg");
-            System.out.println(s);
-            return businessCarouselService.findAll();
-        }*/
-        record.setBcid(CreateId.gitId());
-        //record.setBid(new Business().getBid());
-        //图片上传
-        UploadImages uploadImage = new UploadImages();
-        String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-        String path2 = "img/CarouselImages"; //保存的文件夹
-        String bigImg = uploadImage.upLoadImage(request, file, path1, path2);
-        if (!bigImg.contains(".")) {
-            return Result.fail("未选择上传文件");
+    public Result insertSelective(HttpServletRequest request, HttpServletResponse response, BusinessCarousel record, MultipartFile file) throws Exception {
+        String basePath = "/businessCarousel";  //保存的文件夹
+        if(!file.isEmpty()){
+            String bcid = CreateId.gitId();
+            record.setBcid(bcid);
+            record.setName(record.getName());
+            record.setBid(record.getBid());
+            record.setType(record.getType());
+            record.setStatus(record.getStatus());
+            record.setImgpath(ImgUploadUtils.upload(request,file,basePath));
+        }else{
+            return Result.fail("文件不存在");
         }
-       record.setImgpath(bigImg);
         try {
-            int rows = businessCarouselService.insertSelective(record);
-            if (rows == 0) {
+            int num = businessCarouselService.insertSelective(record);
+            if (num == 0) {
                 return Result.fail(300, "添加失败,插入数据库失败");
             } else {
                 return Result.success("添加成功");
@@ -139,9 +133,6 @@ public class BusinessCarouselController {
             e.printStackTrace();
             return Result.fail(500, "系统错误");
         }
-       /* Object s2 = request.getAttribute("msg");
-        System.out.println(s2);
-        return businessCarouselService.findAll();*/
     }
 
     /**
@@ -149,37 +140,30 @@ public class BusinessCarouselController {
      * @param request
      * @param response
      * @param record
-     * @param bcid
      * @param file
      * @return
      */
    @ResponseBody
     @RequestMapping("/updateByPrimaryKeySelective.action")
-    public Result updateByPrimaryKeySelective(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record, String bcid,MultipartFile file){
+    public Result updateByPrimaryKeySelective(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record,MultipartFile file)throws Exception{
 
-        //图片上传
-        UploadImages uploadImage = new UploadImages();
-        String path1 = request.getSession().getServletContext().getRealPath("/");  //上传的路径
-        String path2 = "businessCarouselImages";  //保存的文件夹
-        String bigImg = uploadImage.upLoadImage(request, file, path1, path2);
-        if (!bigImg.contains(".")) {
-            record.setImgpath(null);
-        }else{
-            BusinessCarousel record2 = new BusinessCarousel();
-            record2 = businessCarouselService.selectByPrimaryKey(bcid);
-            File image= new File(path1+record2.getImgpath());
-           // System.out.println(image);
-           if(image.exists()){
-             //  System.out.println(image);
-              // System.out.println(1);
-                image.delete();
-            }
-            record.setImgpath(bigImg);
-        }
+       if(file != null){
+           String basePath = "/businessCarousel";  //保存的文件夹
+           record = businessCarouselService.selectByPrimaryKey(record.getBcid());
+           ImgUploadUtils.deleteFile(record.getImgpath());
+           record.setImgpath(ImgUploadUtils.upload(request,file,basePath));
+           }else{
+               return Result.fail("文件不存在");
+           }
        try {
-           int rows = businessCarouselService.updateByPrimaryKeySelective(record);
-           if (rows == 0) {
-               return Result.fail(300, "修改失败");
+           record.setBcid(record.getBcid());
+           record.setName(record.getName());
+           record.setBid(record.getBid());
+           record.setType(record.getType());
+           record.setStatus(record.getStatus());
+           int num = businessCarouselService.updateByPrimaryKeySelective(record);
+           if (num == 0) {
+               return Result.fail(300, "修改失败,插入数据库失败");
            } else {
                return Result.success("修改成功");
            }
@@ -187,8 +171,8 @@ public class BusinessCarouselController {
            e.printStackTrace();
            return Result.fail(500, "系统错误");
        }
-       //return businessCarouselService.findAll();
-    }
+   }
+
     @ResponseBody
     @RequestMapping("/updateByPrimaryKey.action")
     public int  updateByPrimaryKey(HttpServletRequest request, HttpServletResponse response,BusinessCarousel record){
